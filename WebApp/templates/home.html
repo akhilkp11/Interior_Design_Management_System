@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Interior Design Management</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #faf7f2;
+<!--            background-color: #3b5d4f;-->
+        }
+        .hero {
+            background: url('https://source.unsplash.com/1600x900/?interior,design') no-repeat center;
+            background-size: cover;
+            color: black;
+            text-align: center;
+            padding: 100px 20px;
+        }
+        .product-card img {
+            height: 200px;
+            object-fit: cover;
+        }
+
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="#" style="font-family:Playfair Display, serif;">Interior Design Management</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="{% url 'shop'  %}">Products</a></li>
+                <li class="nav-item"><a class="nav-link" href="#designs">Designs</a></li>
+                <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
+                       aria-expanded="false"><i class="fa-solid fa-user"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Hi {{request.session.username}}</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="{% url 'user_sign_out' %}">Log out</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<header class="hero">
+    <h1 style="font-family: Playfair Display, serif;">Transform Your Space with Elegant Design</h1>
+    <p style="font-family:  Inter, sans-serif; color: grey;">Discover premium furniture and expert interior design
+        services tailored to your style</p>
+    <a href="{% url 'shop' %}" class="btn btn-primary">Explore Products</a>
+</header>
+
+<section id="products" class="container my-5">
+    <h2 class="text-center mb-4" style="font-family: Playfair Display, serif;">Curated Products</h2>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card product-card">
+                <img src="{% static 'assets/home/home-chair.jpg' %}" class="card-img-top" alt="Chair">
+                <div class="card-body">
+                    <h5 class="card-title">Modern Lounge Chair</h5>
+                    <p class="card-text">$599</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card product-card">
+                <img src="{% static 'assets/home/home-lighting.jpg' %}" class="card-img-top" alt="Lamp">
+                <div class="card-body">
+                    <h5 class="card-title">Minimalist Table Lamp</h5>
+                    <p class="card-text">$129</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card product-card">
+                <img src="{% static 'assets/home/home-decor.jpg' %}" class="card-img-top" alt="Vase">
+                <div class="card-body">
+                    <h5 class="card-title">Artisan Vase</h5>
+                    <p class="card-text">$89</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card product-card">
+                <img src="{% static 'assets/home/home-storage.jpg' %}" class="card-img-top" alt="Shelf">
+                <div class="card-body">
+                    <h5 class="card-title">Scandinavian Shelf</h5>
+                    <p class="card-text">$299</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!--    <section id="designs" class="container my-5">-->
+<!--        <h2 class="text-center mb-4">Design Inspiration</h2>-->
+<!--        <div class="row">-->
+<!--            <div class="col-md-4" >-->
+<!--                <h4>Scandinavian Living Room</h4>-->
+<!--                <p>Clean lines and natural materials create a serene atmosphere.</p>-->
+<!--            </div>-->
+<!--            <div class="col-md-4">-->
+<!--                <h4>Modern Minimalist Kitchen</h4>-->
+<!--                <p>Functional design meets contemporary aesthetics.</p>-->
+<!--            </div>-->
+<!--            <div class="col-md-4">-->
+<!--                <h4>Bohemian Bedroom</h4>-->
+<!--                <p>A perfect blend of comfort and artistic expression.</p>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </section>-->
+
+<div class="container my-5" id="designs">
+    <h2 class="text-center mb-4" style="font-family: Playfair Display, serif;">Design Inspiration</h2>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        <!-- Card 1 -->
+        <div class="col">
+            <div class="card">
+                <img src="{% static 'assets/home/home-livingroom.jpg' %}" style="height:300px;" class="card-img-top"
+                     alt="Card Image 1">
+                <div class="card-body">
+                    <h5 class="card-title">Scandinavian Living Room</h5>
+                    <p class="card-text">Clean lines and natural materials create a serene atmosphere.</p>
+                </div>
+            </div>
+        </div>
+        <!-- Card 2 -->
+        <div class="col">
+            <div class="card">
+                <img src="{% static 'assets/home/home-kitchen.jpg' %}" style="height:300px;" class="card-img-top"
+                     alt="Card Image 2">
+                <div class="card-body">
+                    <h5 class="card-title">Modern Minimalist Kitchen</h5>
+                    <p class="card-text">Functional design meets contemporary aesthetics</p>
+                </div>
+            </div>
+        </div>
+        <!-- Card 3 -->
+        <div class="col">
+            <div class="card">
+                <img src="{% static 'assets/home/home-bedroom.jpg' %}" style="height:300px;" class="card-img-top"
+                     alt="Card Image 3">
+                <div class="card-body">
+                    <h5 class="card-title">Bohemian Bedroom</h5>
+                    <p class="card-text">A perfect blend of comfort and artistic expression.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section id="contact" class="container my-5">
+    <h2 class="text-center mb-4">Get in Touch</h2>
+    <form>
+        <div class="mb-3">
+            <label class="form-label">Name</label>
+            <input type="text" class="form-control" placeholder="Your name">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-control" placeholder="your@email.com">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Message</label>
+            <textarea class="form-control" rows="4" placeholder="Tell us about your project..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Send Message</button>
+    </form>
+</section>
+
+<footer class="bg-light text-center py-4">
+    <p>© 2025 Interior Design Management. All rights reserved.</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

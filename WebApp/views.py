@@ -1,0 +1,163 @@
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login
+from AdminApp.models import CategoryDb, ProductDb
+from WebApp.models import UserRegistrationDb, CartDb
+from django.contrib import messages
+
+# Create your views here.
+
+def signup_page(request):
+    return render(request, "signup.html")
+
+
+def user_signup(request):
+    if request.method == "POST":
+        un = request.POST.get('user')
+        ps1 = request.POST.get('password')
+        ps2 = request.POST.get('re_password')
+        em = request.POST.get('email')
+        cont = request.POST.get('mobile')
+
+        if ps1 != ps2:
+            messages.error(request, "Passwords do not match.")
+            return redirect(signup_page)
+
+        if UserRegistrationDb.objects.filter(username=un).exist():
+            messages.error(request, "Username already taken. Please choose another one.")
+
+        obj = UserRegistrationDb(username=un, password=ps1, conf_password=ps2, email=em, contact=cont)
+        obj.save()
+        return redirect(signup_page)
+
+
+# Create your login view function
+def user_login(request):
+    if request.method == "POST":
+        # Get the data from the form
+        username = request.POST.get('user_name')
+        password = request.POST.get('password')
+
+        # Authenticate user
+        if UserRegistrationDb.objects.filter(username=username, password=password).exists():
+            request.session['username'] = username
+            request.session['password'] = password
+            messages.success(request, "Welcome to Home Page")
+            return redirect(display_home)
+        else:
+            messages.warning(request, "Invalid username or password")
+
+            return redirect(signup_page)
+    else:
+        messages.warning(request, "Invalid username")
+        return redirect(signup_page)
+
+
+def user_sign_out(request):
+    del request.session['username']
+    del request.session['password']
+    return redirect(signup_page)
+
+
+def display_home(request):
+    return render(request, "home.html")
+
+
+def display_shop(request):
+    data = CategoryDb.objects.all()
+    return render(request, "shop_page.html", {'data': data})
+
+
+def all_products(request):
+    products = ProductDb.objects.all()
+    return render(request, "all_products.html", {'products': products})
+
+
+def filtered_products(request, cat):
+    data = ProductDb.objects.filter(category_name=cat)
+    category = cat
+    return render(request, "filtered_products.html", {'data': data, 'category': category})
+
+
+def single_product(request, pr_id):
+    item = ProductDb.objects.get(id=pr_id)
+    return render(request, "single_product.html", {'item': item})
+
+
+def save_cart(request):
+    if request.method == "POST":
+        un = request.POST.get('userName')
+        pn = request.POST.get('productName')
+        qty = request.POST.get('quantity')
+        pri = request.POST.get('price')
+        tot = request.POST.get('total')
+        try:
+            obj = ProductDb.objects.get(product_name=pn)
+            img = obj.product_image
+        except ProductDb.DoesNotExist:
+            img = None
+        cart = CartDb(Username=un, ProductName=pn, Quantity=qty, Price=pri, TotalPrice=tot, Pro_Image=img)
+        cart.save()
+        return redirect(display_shop)
+
+
+def delete_cart_item(request, c_id):
+    x = CartDb.objects.get(id=c_id)
+    x.delete()
+    return redirect(cart_page)
+
+
+def cart_page(request):
+
+    sub_total = 0
+    Discount = 0
+    total = 0
+    data = CartDb.objects.filter(Username=request.session['username'])
+    for i in data:
+        sub_total += i.TotalPrice
+
+    if sub_total > 100000:
+        Discount = sub_total*(5/100)
+    else:
+        Discount = sub_total*(1/100)
+
+    total = sub_total - Discount
+
+    context = {
+        'data': data,
+        'sub_total': sub_total,
+        'Discount': Discount,
+        'total': total,
+    }
+    return render(request, "cart.html", context)
+
+
+def checkout(request):
+    sub_total = 0
+    Discount = 0
+    total = 0
+
+    data = CartDb.objects.filter(Username=request.session['username'])
+    for i in data:
+        sub_total += i.TotalPrice
+
+    if sub_total > 100000:
+        Discount = sub_total * (5 / 100)
+        shipping_amount = 500
+    else:
+        Discount = sub_total * (1 / 100)
+        shipping_amount = 1000
+
+    total = sub_total - Discount + shipping_amount
+
+    context = {
+        'data': data,
+        'sub_total': sub_total,
+        'Discount': Discount,
+        'shipping_amount': shipping_amount,
+        'total': total,
+    }
+    return render(request, "checkout.html", context)
+
+
+def about(request):
+    return render(request, "about.html")
