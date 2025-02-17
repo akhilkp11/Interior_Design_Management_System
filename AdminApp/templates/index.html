@@ -278,6 +278,22 @@
                 </ul>
               </div>
             </li>
+
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="collapse" href="#ui-basics" aria-expanded="false" aria-controls="ui-basic">
+                <span class="icon-bg"><i class="mdi mdi-crosshairs-gps menu-icon"></i></span>
+                <span class="menu-title">Bookings</span>
+                <i class="menu-arrow"></i>
+              </a>
+              <div class="collapse" id="ui-basics">
+                <ul class="nav flex-column sub-menu">
+<!--                  <li class="nav-item"> <a class="nav-link" href="{% url 'add_category' %}">Add</a></li>-->
+                  <li class="nav-item"> <a class="nav-link" href="{% url 'display_booking' %}">View</a></li>
+
+                </ul>
+              </div>
+            </li>
+
             <li class="nav-item documentation-link">
               <a class="nav-link" href="http://www.bootstrapdash.com/demo/connect-plus-free/jquery/documentation/documentation.html" target="_blank">
                 <span class="icon-bg">
@@ -354,11 +370,11 @@
                       <div class="col-xl-3  col-lg-6 col-sm-6 grid-margin stretch-card">
                         <div class="card">
                           <div class="card-body text-center">
-                            <h5 class="mb-2 text-dark font-weight-normal">Customers</h5>
-                            <h2 class="mb-4 text-dark font-weight-bold">100,38</h2>
+                            <h5 class="mb-2 text-dark font-weight-normal">Booking for consultaion</h5>
+                            <h2 class="mb-4 text-dark font-weight-bold">{{booking}}</h2>
                             <div class="dashboard-progress dashboard-progress-3 d-flex align-items-center justify-content-center item-parent"><canvas width="125" height="125"></canvas><i class="mdi mdi-eye icon-md absolute-center text-dark"></i></div>
-                            <p class="mt-4 mb-0">Increased since yesterday</p>
-                            <h3 class="mb-0 font-weight-bold mt-2 text-dark">35%</h3>
+<!--                            <p class="mt-4 mb-0">Increased since yesterday</p>-->
+<!--                            <h3 class="mb-0 font-weight-bold mt-2 text-dark">35%</h3>-->
                           </div>
                         </div>
                       </div>

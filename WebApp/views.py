@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from AdminApp.models import CategoryDb, ProductDb
-from WebApp.models import UserRegistrationDb, CartDb
+from WebApp.models import UserRegistrationDb, CartDb, OrderDb, ContactDb
 from django.contrib import messages
+import razorpay
 
 # Create your views here.
 
@@ -147,7 +148,8 @@ def checkout(request):
         Discount = sub_total * (1 / 100)
         shipping_amount = 1000
 
-    total = sub_total - Discount + shipping_amount
+    total = int(sub_total - Discount + shipping_amount)
+
 
     context = {
         'data': data,
@@ -159,5 +161,59 @@ def checkout(request):
     return render(request, "checkout.html", context)
 
 
+def save_order(request):
+    if request.method == "POST":
+        name = request.POST.get('c_name')
+        address = request.POST.get('c_address')
+        ship_address = request.POST.get('c_shipping_address')
+        state = request.POST.get('c_state_country')
+        pin = request.POST.get('c_postal_zip')
+        email = request.POST.get('c_email')
+        mobile = request.POST.get('c_phone')
+        total = request.POST.get('c_total')
+        message = request.POST.get('c_order_notes')
+        obj = OrderDb(Name=name, Email=email, Address=address, ShippingAddress=ship_address, Mobile=mobile, state=state,
+                      Pin=pin, TotalPrice=total, Message=message)
+        obj.save()
+        return redirect(payment)
+
+
+def payment(request):
+    # Retrieve the data from OrderDb with the specified ID
+    customer = OrderDb.objects.order_by('-id').first()
+
+    # Get the amount of the specified customer
+    payy = customer.TotalPrice
+
+    # convert the amount into paisa ( smallest currency unit )
+    # Assuming the payment amount in rupees
+    amount = int(payy * 100)
+
+    payy_str = str(amount)
+
+    if request.method == "POST":
+        order_currency = 'INR'
+        # client = razorpay.Client(auth=('your_key_id', 'your_key_secret'))
+        client = razorpay.Client(auth=('rzp_test_zd2WfeB6SbHEAn', 'sc4JnF7I7ra9QpFb1MK8Qlm0'))
+        payment = client.order.create({'amount': amount, 'currency': order_currency})
+
+    return render(request, "payment.html", {'customer': customer, 'payy_str': payy_str})
+
+
 def about(request):
     return render(request, "about.html")
+
+
+def contact(request):
+    return render(request, "contact.html")
+
+
+def save_contact(request):
+    if request.method == "POST":
+        na = request.POST.get('name')
+        mob = request.POST.get('mobile')
+        em = request.POST.get('email')
+        address = request.POST.get('address')
+        obj = ContactDb(Name=na, Email=em, Mobile=mob, Address=address)
+        obj.save()
+        return redirect(display_shop)

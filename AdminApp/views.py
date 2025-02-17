@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from AdminApp.models import CategoryDb, ProductDb
+from WebApp.models import ContactDb
 from django.utils.datastructures import MultiValueDictKeyError
 from django.core.files.storage import FileSystemStorage
 
@@ -8,7 +9,8 @@ from django.core.files.storage import FileSystemStorage
 def display_index(request):
     category = CategoryDb.objects.count
     product = ProductDb.objects.count
-    return render(request, "index.html", {'category': category, 'product': product})
+    booking = ContactDb.objects.count
+    return render(request, "index.html", {'category': category, 'product': product, 'booking': booking})
 
 
 def add_category(request):
@@ -104,3 +106,8 @@ def update_product(request, pr_id):
         ProductDb.objects.filter(id=pr_id).update(product_name=pro_na, category_name=cat_na, sub_category_name=sb_na,
                                                   Description=des, price=pr, quantity=qty, product_image=file)
         return redirect(display_product)
+
+
+def display_booking(request):
+    data = ContactDb.objects.all()
+    return render(request, "display_bookings.html", {'data': data})
