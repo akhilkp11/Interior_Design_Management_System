@@ -2,6 +2,7 @@ from django.urls import path
 from AdminApp import views
 
 urlpatterns = [
+    # E-commerce section
     path('index/', views.display_index, name="index"),
     path('add_category/', views.add_category, name="add_category"),
     path('display_category/', views.display_category, name="display_category"),
@@ -18,4 +19,15 @@ urlpatterns = [
 
 
     path('display_booking/', views.display_booking, name="display_booking"),
+
+
+    # interior design section
+    path('add_design_category/', views.add_design_category, name="add_design_category"),
+    path('save_design_category/', views.save_design_category, name="save_design_category"),
+    path('display_design_category/', views.display_design_category, name="display_design_category"),
+    path('add_designs/', views.add_designs, name="add_designs"),
+    path('save_designs/', views.save_designs, name="save_designs"),
+    path('display_designs/', views.display_designs, name="display_designs"),
+
+
 ]

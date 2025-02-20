@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>display products</title>
+</head>
+<body>
+    <div class="col-lg-12 stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Table for Interior Designs</h4>
+<!--                    <p class="card-description"> Add class <code>.table-{color}</code>-->
+<!--                    </p>-->
+                    <table class="table table-bordered table-responsive">
+                      <thead>
+                        <tr>
+                          <th> # </th>
+                          <th> Design Name </th>
+                          <th> Category Name </th>
+                          <th> Description </th>
+                          <th> Style </th>
+                          <th> Dimension </th>
+                          <th> Designer </th>
+                          <th> Estimate </th>
+                          <th> Product Image </th>
+                          <th> Action </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      {% for d in data %}
+                        <tr>
+                          <td> {{forloop.counter}} </td>
+                          <td> {{d.Name}} </td>
+                          <td> {{d.Category}} </td>
+                          <td> {{d.Description}}</td>
+                          <td> {{d.Style}} </td>
+                          <td> {{d.Dimension}} </td>
+                          <td> {{d.Designer}} </td>
+                          <td> {{d.Estimate}} </td>
+                          <td> <img src="{{d.Image.url}}" width="200px"> </td>
+                          <td>
+                            <a href=""><button class="btn btn-outline-primary">Edit</button></a>
+                            <a href=""><button class="btn btn-outline-danger">Delete</button></a>
+                          </td>
+                        </tr>
+                      {% endfor %}
+
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+</body>
+</html>
+{% endblock %}

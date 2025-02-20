@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from AdminApp.models import CategoryDb, ProductDb
+from AdminApp.models import CategoryDb, ProductDb, DesignCategoryDb, DesignsDb
 from WebApp.models import ContactDb
 from django.utils.datastructures import MultiValueDictKeyError
 from django.core.files.storage import FileSystemStorage
@@ -12,7 +12,7 @@ def display_index(request):
     booking = ContactDb.objects.count
     return render(request, "index.html", {'category': category, 'product': product, 'booking': booking})
 
-
+# e-commerce side
 def add_category(request):
     return render(request, 'add_category.html')
 
@@ -111,3 +111,48 @@ def update_product(request, pr_id):
 def display_booking(request):
     data = ContactDb.objects.all()
     return render(request, "display_bookings.html", {'data': data})
+
+
+# interior design side
+def add_design_category(request):
+    return render(request, "interior/add_design_category.html")
+
+
+def save_design_category(request):
+    if request.method == "POST":
+        na = request.POST.get('cat-name')
+        img = request.FILES['cat-img']
+        obj = DesignCategoryDb(CategoryName=na, CategoryImage=img)
+        obj.save()
+        return redirect(display_design_category)
+
+
+def display_design_category(request):
+    data = DesignCategoryDb.objects.all()
+    return render(request, "interior/display_design_category.html", {'data': data})
+
+
+def add_designs(request):
+    cat = DesignCategoryDb.objects.all()
+    return render(request, "interior/add_designs.html", {'cat': cat})
+
+
+def save_designs(request):
+    if request.method == "POST":
+        na = request.POST.get('design_name')
+        designer = request.POST.get('designer')
+        cat = request.POST.get('cat_name')
+        description = request.POST.get('description')
+        sty = request.POST.get('style')
+        dim = request.POST.get('dimension')
+        est = request.POST.get('estimate')
+        img = request.FILES['design_img']
+        obj = DesignsDb(Name=na, Designer=designer, Category=cat, Description=description, Style=sty,
+                        Dimension=dim, Image=img, Estimate=est)
+        obj.save()
+        return redirect(display_designs)
+
+
+def display_designs(request):
+    data = DesignsDb.objects.all()
+    return render(request, "interior/display_designs.html", {'data': data})

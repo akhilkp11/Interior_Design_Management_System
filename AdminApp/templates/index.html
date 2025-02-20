@@ -241,7 +241,7 @@
         <!-- partial:../../partials/_sidebar.html -->
         <nav class="sidebar sidebar-offcanvas" id="sidebar">
           <ul class="nav">
-            <li class="nav-item nav-category">Main</li>
+            <li class="nav-item nav-category">E-Commerce</li>
             <li class="nav-item">
               <a class="nav-link" href="{% url 'index' %}">
                 <span class="icon-bg"><i class="mdi mdi-cube menu-icon"></i></span>
@@ -294,8 +294,41 @@
               </div>
             </li>
 
+            <li class="nav-item nav-category">Interior Designs</li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="collapse" href="#ui-category" aria-expanded="false" aria-controls="ui-basic">
+                <span class="icon-bg"><i class="mdi mdi-crosshairs-gps menu-icon"></i></span>
+                <span class="menu-title">Category</span>
+                <i class="menu-arrow"></i>
+              </a>
+              <div class="collapse" id="ui-category">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item"> <a class="nav-link" href="{% url 'add_design_category' %}">Add</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="{% url 'display_design_category' %}">View</a></li>
+
+                </ul>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="collapse" href="#ui-design" aria-expanded="false" aria-controls="ui-basic">
+                <span class="icon-bg"><i class="mdi mdi-crosshairs-gps menu-icon"></i></span>
+                <span class="menu-title">Designs</span>
+                <i class="menu-arrow"></i>
+              </a>
+              <div class="collapse" id="ui-design">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item"> <a class="nav-link" href="{% url 'add_designs' %}">Add</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="{% url 'display_designs' %}">View</a></li>
+
+                </ul>
+              </div>
+            </li>
+
+
+
+
             <li class="nav-item documentation-link">
-              <a class="nav-link" href="http://www.bootstrapdash.com/demo/connect-plus-free/jquery/documentation/documentation.html" target="_blank">
+              <a class="nav-link" href="" >
                 <span class="icon-bg">
                   <i class="mdi mdi-file-document-box menu-icon"></i>
                 </span>

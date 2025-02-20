@@ -63,6 +63,7 @@ def display_home(request):
     return render(request, "home.html")
 
 
+# E-Commerce section
 def display_shop(request):
     data = CategoryDb.objects.all()
     return render(request, "shop_page.html", {'data': data})
@@ -193,8 +194,8 @@ def payment(request):
 
     if request.method == "POST":
         order_currency = 'INR'
-        # client = razorpay.Client(auth=('your_key_id', 'your_key_secret'))
-        client = razorpay.Client(auth=('rzp_test_zd2WfeB6SbHEAn', 'sc4JnF7I7ra9QpFb1MK8Qlm0'))
+        client = razorpay.Client(auth=('your_key_id', 'your_key_secret'))
+
         payment = client.order.create({'amount': amount, 'currency': order_currency})
 
     return render(request, "payment.html", {'customer': customer, 'payy_str': payy_str})
@@ -217,3 +218,8 @@ def save_contact(request):
         obj = ContactDb(Name=na, Email=em, Mobile=mob, Address=address)
         obj.save()
         return redirect(display_shop)
+
+
+# design section
+def homepage(request):
+    return render(request, "design/category.html")

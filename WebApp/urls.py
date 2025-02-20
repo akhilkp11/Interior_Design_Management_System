@@ -22,4 +22,7 @@ urlpatterns = [
     path('user_signup/', views.user_signup, name="user_signup"),
     path('user_login/', views.user_login, name="user_login"),
     path('user_sign_out/', views.user_sign_out, name="user_sign_out"),
+
+    # design section
+    path('homepage/', views.homepage, name="homepage")
 ]

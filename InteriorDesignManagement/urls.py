@@ -18,12 +18,15 @@ from django.contrib import admin
 from django.urls import path, include
 import AdminApp.urls
 import WebApp.urls
+import DesignApp.urls
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns, static
 from InteriorDesignManagement import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('AdminApp/', include(AdminApp.urls)),
+    path('DesignApp/', include(DesignApp.urls)),
     path('WebApp/', include(WebApp.urls)),
+
 ]
 
 urlpatterns += staticfiles_urlpatterns()

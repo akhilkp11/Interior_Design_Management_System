@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Designs</title>
+</head>
+<body>
+    <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Add Designs</h4>
+                    <p class="card-description"> Basic form  </p>
+                    <form class="forms-sample" method="post" action="{% url 'save_designs' %}" enctype="multipart/form-data">
+                      {% csrf_token %}
+                      <div class="form-group">
+                        <label for="exampleInputName1">Design Name</label>
+                        <input type="text" class="form-control" id="exampleInputName1" placeholder="Design Name" name="design_name">
+                      </div>
+
+                      <div class="form-group">
+                        <label for="exampleSelectGender">Category Name</label>
+                        <select class="form-control" id="exampleSelectGender" name="cat_name">
+                          <option>select option</option>
+                          {% for c in cat %}
+                          <option>{{c.CategoryName}}</option>
+                          {% endfor %}
+                        </select>
+                      </div>
+
+                      <div class="form-group">
+                        <label for="exampleInput4">Style</label>
+                        <input type="text" class="form-control" id="exampleInput4" placeholder="Style" name="style">
+                      </div>
+
+                      <div class="form-group">
+                        <label for="exampleInput2">Dimension</label>
+                        <input type="text" class="form-control" id="exampleInput2" placeholder="Dimension" name="dimension">
+                      </div>
+
+                      <div class="form-group">
+                        <label for="exampleInput3">Estimate</label>
+                        <input type="text" class="form-control" id="exampleInput3" placeholder="Estimate" name="estimate">
+                      </div>
+
+                      <div class="form-group">
+                        <label for="exampleTextarea1">Description</label>
+                        <textarea class="form-control" id="exampleTextarea1" rows="4" name="description"></textarea>
+                      </div>
+
+                      <div class="form-group">
+                        <label for="designer">Designer</label>
+                        <input type="text" class="form-control" id="designer" placeholder="Designer" name="designer">
+                      </div>
+
+                      <div class="form-group">
+                        <label>Image upload</label>
+                        <input type="file"  name="design_img">
+
+                      </div>
+
+
+                      <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+</body>
+</html>
+{% endblock %}
