@@ -7,5 +7,12 @@ def category_page(request):
 
 
 def filter_design(request, ct_name):
-    item = DesignsDb.objects.filter(Category=ct_name)
-    return render(request, "design_page.html", {'item': item})
+    data = DesignsDb.objects.filter(Category=ct_name)
+    name = ct_name
+    return render(request, "design_page.html", {'data': data, 'name': name})
+
+
+def design_single(request, d_id):
+    item = DesignsDb.objects.get(id=d_id)
+    return render(request, "design_single.html", {'item': item})
+
