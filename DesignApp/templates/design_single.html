@@ -24,7 +24,7 @@
 <nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" aria-label="Furni navigation bar">
 
     <div class="container">
-        <a class="navbar-brand" href="index.html">Shop<span>.</span></a>
+        <a class="navbar-brand" href="">Interior Designs<span>.</span></a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni"
                 aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,11 +36,13 @@
                 <li class="nav-item ">
                     <a class="nav-link" href="{% url 'home' %}">Home</a>
                 </li>
-                <li class="active"><a class="nav-link" href="{% url 'shop' %}">Shop</a></li>
-                <li><a class="nav-link" href="{% url 'about' %}">About us</a></li>
-                <li><a class="nav-link" href="">Services</a></li>
-                <li><a class="nav-link" href="">Blog</a></li>
-                <li><a class="nav-link" href="">Contact us</a></li>
+                <li class="nav-item ">
+                    <a class="nav-link" href="{% url 'category_page' %}">Designs</a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" href="{% url 'estimate_page' %}">Estimate Calculator</a>
+                </li>
+
             </ul>
 
             <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
@@ -56,8 +58,8 @@
                         <li><a class="dropdown-item" href="{% url 'user_sign_out' %}">Log out</a></li>
                     </ul>
                 </li>
-                <li><a class="nav-link" href="{% url 'cart_page' %}"><img
-                        src="{% static 'designstyles/images/cart.svg' %}"></a></li>
+                <!--                <li><a class="nav-link" href="{% url 'cart_page' %}"><img-->
+                <!--                        src="{% static 'designstyles/images/cart.svg' %}"></a></li>-->
             </ul>
         </div>
     </div>
@@ -103,6 +105,11 @@
                                 </div>
 
                                 <div class="justify-content-between d-flex ">
+                                    <div><h5 class="mb-4">Designer</h5></div>
+                                    <div><h5 class="mb-4">{{item.Designer}}</h5></div>
+                                </div>
+
+                                <div class="justify-content-between d-flex ">
                                     <div><h5 class="mb-4">Estimate</h5></div>
                                     <div><h5 class="mb-4">{{item.Estimate}}</h5></div>
                                 </div>
@@ -110,10 +117,6 @@
                                 <div class="text-left">
                                     <p class="mb-4">{{item.Description}}</p>
                                 </div>
-
-
-
-
 
 
                                 <input type="hidden" id="ProductName" name="productName" value="{{item.product_name}}">
@@ -126,8 +129,12 @@
                                 <!--									</ul>-->
 
 
-                                <p><a href="" class="mt-4">
-                                    <button type="submit" class="btn btn-lg">Book Free Consultation</button>
+                                <p><a href="" class="mt-4" data-bs-toggle="modal" data-bs-target="#consultationModal">
+                                    <button type="button" class="btn btn-lg">Book Free Consultation</button>
+                                </a></p>
+
+                                <p><a href="{% url 'download_design_pdf' d_id=item.id %}" class="mt-4 btn btn-lg" >
+                                    Download PDF
                                 </a></p>
                             </form>
                             <!--form ends-->
@@ -139,6 +146,38 @@
 
 
         </div>
+
+        <!--recommendation sections-->
+        <div class="untree_co-section product-section before-footer-section">
+            <div class="container">
+                <div class="row">
+                    <div class="recommendations-section  ">
+                        <h3>Recommended for You</h3>
+                        <div class="recommendations-list row">
+                            {% for item in recommendations %}
+                            <div class="col-12 col-md-4 col-lg-3 mb-5">
+                                <div class="recommendation-item ">
+
+
+                                    <a class="product-item" href="{% url 'design_single' item.id  %}">
+                                        <img src="{{ item.Image.url }}" style="height: 200px;"
+                                             class="img-fluid product-thumbnail">
+                                        <h3 class="product-title">{{ item.Name }}</h3>
+                                        <!--							<strong class="product-price">$50.00</strong>-->
+
+
+                                    </a>
+                                </div>
+                            </div>
+
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
 
@@ -251,6 +290,49 @@
     </div>
 </footer>
 <!-- End Footer Section -->
+
+<!-- Start Modal -->
+<div class="modal fade" id="consultationModal" tabindex="-1" aria-labelledby="consultationModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="consultationModalLabel">Book a Free Consultation</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="consultationForm" method="POST" action="{% url 'consultation_submit' %}">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="name" name="name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="mobile" class="form-label">Mobile Number</label>
+                        <input type="text" class="form-control" id="mobile" name="mobile" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="location" class="form-label">Location</label>
+                        <input type="text" class="form-control" id="location" name="location" required>
+                        <input type="hidden" class="form-control" name="design_category" value="{{item.Category}}">
+                        <input type="hidden" class="form-control" name="design_name" value="{{item.Name}}">
+                        <input type="hidden" class="form-control" name="design_id" value="{{item.id}}">
+                        <input type="hidden" class="form-control" name="design_estimate" value="{{item.Estimate}}">
+                        <input type="hidden" class="form-control" name="design_dimension" value="{{item.Dimension}}">
+
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modal -->
 
 
 <script src="{% static 'designstyles/js/bootstrap.bundle.min.js' %}"></script>

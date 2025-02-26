@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Design Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+        }
+        h1 {
+            text-align: center;
+        }
+        .design-detail {
+            margin-bottom: 20px;
+        }
+        .design-detail label {
+            font-weight: bold;
+        }
+        .design-detail p {
+            margin: 5px 0;
+        }
+        .image-container {
+            text-align: center;
+        }
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Design Details</h1>
+        <div class="design-detail">
+            <label>Name: </label>
+            <p>{{ design.Name }}</p>
+        </div>
+        <div class="design-detail">
+            <label>Designer: </label>
+            <p>{{ design.Designer }}</p>
+        </div>
+        <div class="design-detail">
+            <label>Category: </label>
+            <p>{{ design.Category }}</p>
+        </div>
+        <div class="design-detail">
+            <label>Description: </label>
+            <p>{{ design.Description }}</p>
+        </div>
+        <div class="design-detail">
+            <label>Style: </label>
+            <p>{{ design.Style }}</p>
+        </div>
+        <div class="design-detail">
+            <label>Dimension: </label>
+            <p>{{ design.Dimension }}</p>
+        </div>
+        <div class="design-detail">
+            <label>Estimate: </label>
+            <p>Rs {{ design.Estimate }}</p>
+        </div>
+        {% if design.Image %}
+            <div class="image-container">
+                <label>Image:</label>
+                <img src="{{ design.Image.url }}" width="200px" alt="Design Image">
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>

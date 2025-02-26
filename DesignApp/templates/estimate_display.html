@@ -15,7 +15,9 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link href="{% static 'designstyles/css/tiny-slider.css' %}" rel="stylesheet">
     <link href="{% static 'designstyles/css/style.css' %}" rel="stylesheet">
-    <title>Title</title>
+    <title>Interior Design Management system product shop </title>
+
+
 </head>
 
 <body>
@@ -36,17 +38,16 @@
                 <li class="nav-item ">
                     <a class="nav-link" href="{% url 'home' %}">Home</a>
                 </li>
-                 <li class="nav-item ">
+                <li class="nav-item ">
                     <a class="nav-link" href="{% url 'category_page' %}">Designs</a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link" href="{% url 'estimate_page' %}">Estimate Calculator</a>
+                    <a class="nav-link" href="">Estimate Calculator</a>
                 </li>
 
             </ul>
 
             <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
-
 
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
@@ -59,8 +60,8 @@
                         <li><a class="dropdown-item" href="{% url 'user_sign_out' %}">Log out</a></li>
                     </ul>
                 </li>
-<!--                <li><a class="nav-link" href="cart.html"><img src="{% static 'designstyles/images/cart.svg' %}"></a>-->
-                </li>
+                <!--                <li><a class="nav-link" href="{% url 'cart_page' %}"><img-->
+                <!--                        src="{% static 'designstyles/images/cart.svg' %}"></a></li>-->
             </ul>
         </div>
     </div>
@@ -68,30 +69,34 @@
 </nav>
 <!-- End Header/Navigation -->
 
+<!-- Start Hero Section -->
+
+<!-- End Hero Section -->
+
 
 <div class="untree_co-section product-section before-footer-section">
     <div class="container">
-        <h1 class="text-center mb-5">{{name}}</h1>
-        <div class="row">
+        <h1 class="text-center mb-5">Estimate Calculator </h1>
+        <div class="row ">
 
-            <!-- Start Column 1 -->
-            {% for d in data %}
-            <div class="col-12 col-md-4 col-lg-3 mb-5">
-                <a class="product-item" href="{% url 'design_single' d_id=d.id %}">
-                    <img src="{{d.Image.url}}" style="height: 200px;" class="img-fluid product-thumbnail">
-                    <h3 class="product-title">{{d.Name}}</h3>
-                    <!--							<strong class="product-price">$50.00</strong>-->
-
-                    <span class="icon-cross">
-								<img src="{% static 'designstyles/images/cross.svg' %}" class="img-fluid">
-							</span>
-                </a>
+            <div class="p-3 p-lg-5 col-4  border bg-white text-center">
+                <h1>Essential</h1><br>
+                <h3>{{essential}} lakhs</h3>
             </div>
-            {% endfor %}
+            <div class="p-3 p-lg-5 col-4  border bg-white text-center">
+                <h1>Premium</h1><br>
+                <h3>{{premium}} lakhs</h3>
+            </div>
+            <div class="p-3 p-lg-5 col-4  border bg-white text-center">
+                <h1>Luxury</h1><br>
+                <h3>{{Luxury}} lakhs</h3>
+            </div>
 
-            <!-- End Column 1 -->
+        </div>
 
-
+        <div class="m-3 text-danger">
+            <p>The calculation is based on approximte values.
+                Actual estimate can given only by consulting interior designers </p>
         </div>
     </div>
 </div>
@@ -109,8 +114,8 @@
             <div class="col-lg-8">
                 <div class="subscription-form">
                     <h3 class="d-flex align-items-center"><span class="me-1"><img
-                            src="{% static 'designstyles/images/envelope-outline.svg' %}" alt="Image" class="img-fluid"></span><span>Subscribe to Newsletter</span>
-                    </h3>
+                            src="{% static 'designstyles/images/envelope-outline.svg' %}" alt="Image"
+                            class="img-fluid"></span><span>Subscribe to Newsletter</span></h3>
 
                     <form action="#" class="row g-3">
                         <div class="col-auto">
@@ -132,7 +137,7 @@
 
         <div class="row g-5 mb-5">
             <div class="col-lg-4">
-                <div class="mb-4 footer-logo-wrap"><a href="#" class="footer-logo">Interior Design<span>.</span></a>
+                <div class="mb-4 footer-logo-wrap"><a href="#" class="footer-logo">Interior Designs<span>.</span></a>
                 </div>
                 <p class="mb-4">Donec facilisis quam ut purus rutrum lobortis. Donec vitae odio quis nisl dapibus
                     malesuada. Nullam ac aliquet velit. Aliquam vulputate velit imperdiet dolor tempor tristique.
@@ -207,10 +212,58 @@
 </footer>
 <!-- End Footer Section -->
 
+<!-- Start Modal -->
+<div class="modal fade" id="consultationModal" tabindex="-1" aria-labelledby="consultationModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="consultationModalLabel">Book a Free Consultation</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="consultationForm" method="POST" action="{% url 'consultation_submit' %}">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="name" name="name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="mobile" class="form-label">Mobile Number</label>
+                        <input type="text" class="form-control" id="mobile" name="mobile" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="location" class="form-label">Location</label>
+                        <input type="text" class="form-control" id="location" name="location" required>
+                        <input type="hidden" class="form-control" name="design_category" value="{{item.Category}}">
+                        <input type="hidden" class="form-control" name="design_name" value="{{item.Name}}">
+                        <input type="hidden" class="form-control" name="design_id" value="{{item.id}}">
+                        <input type="hidden" class="form-control" name="design_estimate" value="{{item.Estimate}}">
+                        <input type="hidden" class="form-control" name="design_dimension" value="{{item.Dimension}}">
+
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modal -->
+
 
 <script src="{% static 'designstyles/js/bootstrap.bundle.min.js' %}"></script>
 <script src="{% static 'designstyles/js/tiny-slider.js' %}"></script>
 <script src="{% static 'designstyles/js/custom.js' %}"></script>
+
+<!-- JQuery link-->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+
 </body>
 
 </html>

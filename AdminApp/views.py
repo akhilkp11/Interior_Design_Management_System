@@ -156,3 +156,36 @@ def save_designs(request):
 def display_designs(request):
     data = DesignsDb.objects.all()
     return render(request, "interior/display_designs.html", {'data': data})
+
+
+def edit_designs(request, d_id):
+    data = DesignsDb.objects.get(id=d_id)
+    cat = DesignCategoryDb.objects.all()
+    return render(request, "interior/edit_designs.html", {'data': data, 'cat': cat})
+
+
+def update_designs(request, d_id):
+    if request.method == "POST":
+        na = request.POST.get('design_name')
+        designer = request.POST.get('designer')
+        cat = request.POST.get('cat_name')
+        description = request.POST.get('description')
+        sty = request.POST.get('style')
+        dim = request.POST.get('dimension')
+        est = request.POST.get('estimate')
+        try:
+            img = request.FILES['design_img']
+            fs = FileSystemStorage()
+            file = fs.save(img.name, img)
+        except MultiValueDictKeyError:
+            file = DesignsDb.objects.get(id=d_id).Image
+
+        DesignsDb.objects.filter(id=d_id).update(Name=na, Designer=designer, Category=cat, Description=description,
+                                                 Style=sty, Dimension=dim, Estimate=est, Image=file)
+    return redirect(display_designs)
+
+
+def delete_designs(request, d_id):
+    x = DesignsDb.objects.get(id=d_id)
+    x.delete()
+    return redirect(display_designs)

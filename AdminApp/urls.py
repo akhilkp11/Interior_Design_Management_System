@@ -28,6 +28,9 @@ urlpatterns = [
     path('add_designs/', views.add_designs, name="add_designs"),
     path('save_designs/', views.save_designs, name="save_designs"),
     path('display_designs/', views.display_designs, name="display_designs"),
+    path('edit_designs/<int:d_id>/', views.edit_designs, name="edit_designs"),
+    path('update_designs/<int:d_id>/', views.update_designs, name="update_designs"),
+    path('delete_designs/<int:d_id>/', views.delete_designs, name="delete_designs"),
 
 
 ]

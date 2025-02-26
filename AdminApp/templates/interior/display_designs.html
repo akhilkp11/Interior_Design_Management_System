@@ -41,8 +41,8 @@
                           <td> {{d.Estimate}} </td>
                           <td> <img src="{{d.Image.url}}" width="200px"> </td>
                           <td>
-                            <a href=""><button class="btn btn-outline-primary">Edit</button></a>
-                            <a href=""><button class="btn btn-outline-danger">Delete</button></a>
+                            <a href="{% url 'edit_designs' d_id=d.id %}"><button class="btn btn-outline-primary">Edit</button></a>
+                            <a href="{% url 'delete_designs' d_id=d.id %}"><button class="btn btn-outline-danger">Delete</button></a>
                           </td>
                         </tr>
                       {% endfor %}
