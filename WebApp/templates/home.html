@@ -29,17 +29,17 @@
     </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+<nav class="navbar navbar-expand-lg navbar-light  fixed-top p-4" style="background-color:#3B5D4F; ">
     <div class="container">
-        <a class="navbar-brand" href="#" style="font-family:Playfair Display, serif;">Interior Design Management</a>
+        <a class="navbar-brand" href="#" style="font-family:Playfair Display, serif; color:white;">Interior Design Management</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link" href="{% url 'shop'  %}">Products</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'category_page' %}">Designs</a></li>
-                <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'shop'  %}" style="color:white;">Products</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'category_page' %}" style="color:white;">Designs</a></li>
+                <li class="nav-item"><a class="nav-link" href="#contact" style="color:white;">Contact</a></li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
                        aria-expanded="false"><i class="fa-solid fa-user"></i></a>
@@ -60,7 +60,7 @@
     <h1 style="font-family: Playfair Display, serif;">Transform Your Space with Elegant Design</h1>
     <p style="font-family:  Inter, sans-serif; color: grey;">Discover premium furniture and expert interior design
         services tailored to your style</p>
-    <a href="{% url 'shop' %}" class="btn btn-primary">Explore Products</a>
+    <a href="{% url 'category_page' %}" class="btn btn-primary">Explore Interior Designs</a>
 </header>
 
 <section id="products" class="container my-5">
@@ -129,8 +129,8 @@
         <!-- Card 1 -->
         <div class="col">
             <div class="card">
-                <img src="{% static 'assets/home/home-livingroom.jpg' %}" style="height:300px;" class="card-img-top"
-                     alt="Card Image 1">
+                <a href="{% url 'filter_design' ct_name='Living Room' %}"><img src="{% static 'assets/home/home-livingroom.jpg' %}" style="height:300px;" class="card-img-top"
+                     alt="Card Image 1"></a>
                 <div class="card-body">
                     <h5 class="card-title">Scandinavian Living Room</h5>
                     <p class="card-text">Clean lines and natural materials create a serene atmosphere.</p>
@@ -140,8 +140,8 @@
         <!-- Card 2 -->
         <div class="col">
             <div class="card">
-                <img src="{% static 'assets/home/home-kitchen.jpg' %}" style="height:300px;" class="card-img-top"
-                     alt="Card Image 2">
+                <a href="{% url 'filter_design' ct_name='Kitchen' %}"><img src="{% static 'assets/home/home-kitchen.jpg' %}" style="height:300px;" class="card-img-top"
+                                                         alt="Card Image 2"></a>
                 <div class="card-body">
                     <h5 class="card-title">Modern Minimalist Kitchen</h5>
                     <p class="card-text">Functional design meets contemporary aesthetics</p>
@@ -151,8 +151,8 @@
         <!-- Card 3 -->
         <div class="col">
             <div class="card">
-                <img src="{% static 'assets/home/home-bedroom.jpg' %}" style="height:300px;" class="card-img-top"
-                     alt="Card Image 3">
+                <a href="{% url 'filter_design' ct_name='Master Bedroom' %}"><img src="{% static 'assets/home/home-bedroom.jpg' %}" style="height:300px;" class="card-img-top"
+                                                         alt="Card Image 3"></a>
                 <div class="card-body">
                     <h5 class="card-title">Bohemian Bedroom</h5>
                     <p class="card-text">A perfect blend of comfort and artistic expression.</p>
@@ -164,18 +164,19 @@
 
 <section id="contact" class="container my-5">
     <h2 class="text-center mb-4">Get in Touch</h2>
-    <form>
+    <form method="post" action="{% url 'save_contact_homepage' %}">
+        {%csrf_token %}
         <div class="mb-3">
             <label class="form-label">Name</label>
-            <input type="text" class="form-control" placeholder="Your name">
+            <input type="text" class="form-control" placeholder="Your name" name="name">
         </div>
         <div class="mb-3">
             <label class="form-label">Email</label>
-            <input type="email" class="form-control" placeholder="your@email.com">
+            <input type="email" class="form-control" placeholder="your@email.com" name="email">
         </div>
         <div class="mb-3">
             <label class="form-label">Message</label>
-            <textarea class="form-control" rows="4" placeholder="Tell us about your project..."></textarea>
+            <textarea class="form-control" rows="4" placeholder="Tell us about your project..." name="message"></textarea>
         </div>
         <button type="submit" class="btn btn-primary">Send Message</button>
     </form>

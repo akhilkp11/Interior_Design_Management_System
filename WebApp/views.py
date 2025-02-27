@@ -62,6 +62,16 @@ def user_sign_out(request):
 def display_home(request):
     return render(request, "home.html")
 
+def save_contact_homepage(request):
+    if request.method == "POST":
+        name = request.POST.get('name')
+        mail = request.POST.get('email')
+        msg = request.POST.get('message')
+        obj = ContactDb(Name=name, Email=mail, Message=msg)
+        obj.save()
+        return redirect(display_home)
+
+
 
 # E-Commerce section
 def display_shop(request):

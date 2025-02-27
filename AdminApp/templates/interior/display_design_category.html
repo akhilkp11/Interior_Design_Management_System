@@ -30,8 +30,8 @@
                           <td> <img src="{{c.CategoryImage.url}}" width="100px"> </td>
 
                           <td>
-                            <a href=""><button class="btn btn-outline-primary mr-3 ml-3">edit</button></a>
-                            <a href=""><button class="btn btn-outline-danger">delete</button></a>
+                            <a href="{% url 'edit_design_category' d_id=c.id %}"><button class="btn btn-outline-primary mr-3 ml-3">edit</button></a>
+                            <a href="{% url 'delete_design_category' d_id=c.id %}"><button class="btn btn-outline-danger">delete</button></a>
                           </td>
                         </tr>
                       {% endfor %}

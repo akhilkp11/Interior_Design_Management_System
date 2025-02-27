@@ -5,19 +5,10 @@ from django.contrib import messages
 
 
 # for pdf generation
-from django.template.loader import render_to_string
+# from django.template.loader import render_to_string
 from django.http import HttpResponse
 from xhtml2pdf import pisa
 
-
-# from PIL import Image
-# from io import BytesIO
-# from django.http import HttpResponse
-# from reportlab.lib.pagesizes import letter
-# from reportlab.pdfgen import canvas
-# from django.shortcuts import get_object_or_404
-# from django.conf import settings
-# import os
 
 # Create your views here.
 def category_page(request):
@@ -33,7 +24,6 @@ def filter_design(request, ct_name):
 
 def design_single(request, d_id):
     item = DesignsDb.objects.get(id=d_id)
-
 
     # Update browsing history in session
     if 'browsing_history' not in request.session:
@@ -63,7 +53,6 @@ def get_recommendations(request):
 
     print(list(i.id for i in recommendations))
     return recommendations
-
 
 
 def consultation_submit(request):
@@ -115,6 +104,7 @@ def download_design_pdf(request, d_id):
 def estimate_page(request):
     return render(request, "estimate_calculate_page.html")
 
+
 def calculate_estimate(request):
     if request.method == "POST":
         kit = request.POST.get('kitchen')
@@ -126,15 +116,12 @@ def calculate_estimate(request):
 
         essential = float(int(kit) * .45 + int(bed) * .35 + int(bath) * .25 + int(liv) * .25 + int(wardrobe) * .1 + int(tv) * .1)
         premium = float(int(kit) * .65 + int(bed) * .45 + int(bath) * .35 + int(liv) * .35 + int(wardrobe) * .15 + int(tv) * .15)
-        Luxury = float(int(kit) * .95 + int(bed) * .75 + int(bath) * .6 + int(liv) * .55 + int(wardrobe) * .35 + int(tv) * .3)
+        luxury = float(int(kit) * .95 + int(bed) * .75 + int(bath) * .6 + int(liv) * .55 + int(wardrobe) * .35 + int(tv) * .3)
 
-        essential= round(essential, 4)
-        premium= round(premium, 4)
-        Luxury= round(Luxury, 4)
+        essential = round(essential, 4)
+        premium = round(premium, 4)
+        luxury = round(luxury, 4)
 
-        return render(request, "estimate_display.html", {'essential': essential, 'premium': premium, 'Luxury': Luxury})
+        return render(request, "estimate_display.html", {'essential': essential, 'premium': premium, 'Luxury': luxury})
 
 
-
-# def display_estimate(request):
-#     return render(request, "estimate_display.html")

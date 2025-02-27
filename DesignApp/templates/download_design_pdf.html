@@ -19,11 +19,17 @@
             text-align: center;
         }
         .design-detail {
-            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px; /* Adjust spacing between label and p */
         }
+
         .design-detail label {
             font-weight: bold;
+            min-width: 120px; /* Set a minimum width for alignment */
         }
+
+
         .design-detail p {
             margin: 5px 0;
         }
@@ -37,42 +43,47 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Design Details</h1>
-        <div class="design-detail">
-            <label>Name: </label>
-            <p>{{ design.Name }}</p>
-        </div>
-        <div class="design-detail">
-            <label>Designer: </label>
-            <p>{{ design.Designer }}</p>
-        </div>
-        <div class="design-detail">
-            <label>Category: </label>
-            <p>{{ design.Category }}</p>
-        </div>
-        <div class="design-detail">
-            <label>Description: </label>
-            <p>{{ design.Description }}</p>
-        </div>
-        <div class="design-detail">
-            <label>Style: </label>
-            <p>{{ design.Style }}</p>
-        </div>
-        <div class="design-detail">
-            <label>Dimension: </label>
-            <p>{{ design.Dimension }}</p>
-        </div>
-        <div class="design-detail">
-            <label>Estimate: </label>
-            <p>Rs {{ design.Estimate }}</p>
-        </div>
-        {% if design.Image %}
-            <div class="image-container">
-                <label>Image:</label>
-                <img src="{{ design.Image.url }}" width="200px" alt="Design Image">
-            </div>
-        {% endif %}
+<div class="container">
+    <h1>Design Details</h1>
+    <div class="design-detail">
+
+        <p><label>Name:</label> {{ design.Name }}</p>
     </div>
+    <div class="design-detail">
+
+        <p><label>Designer: </label> {{ design.Designer }}</p>
+    </div>
+    <div class="design-detail">
+
+        <p><label>Category: </label> {{ design.Category }}</p>
+    </div>
+    <div class="design-detail">
+        <label>Description: </label>
+        <p>{{ design.Description }}</p>
+<!--        <p><label>Description: </label> {{ design.Description }}</p>-->
+    </div>
+    <div class="design-detail">
+
+        <p><label>Style: </label> {{ design.Style }}</p>
+    </div>
+    <div class="design-detail">
+        <label></label>
+        <p></p>
+        <p><label>Dimension: </label> {{ design.Dimension }}</p>
+    </div>
+    <div class="design-detail">
+        <label></label>
+        <p></p>
+        <p><label>Estimate: </label> Rs {{ design.Estimate }}</p>
+    </div>
+    {% if design.Image %}
+    <div class="image-container">
+        <label>Image:</label>
+<!--        <img src="{{ design.Image.url }}" width="200px" alt="Design Image">-->
+        <img src="data:image/jpeg;base64,{{ design.Image.base64 }}" width="200px" alt="Design Image">
+
+    </div>
+    {% endif %}
+</div>
 </body>
 </html>
