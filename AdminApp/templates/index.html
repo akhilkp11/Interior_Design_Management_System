@@ -206,6 +206,25 @@
         <!-- partial:../../partials/_sidebar.html -->
         <nav class="sidebar sidebar-offcanvas" id="sidebar">
             <ul class="nav">
+                <li class="nav-item nav-category">User section</li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="collapse" href="#ui-user" aria-expanded="false"
+                       aria-controls="ui-basic">
+                        <span class="icon-bg"><i class="mdi mdi-crosshairs-gps menu-icon"></i></span>
+                        <span class="menu-title">User</span>
+                        <i class="menu-arrow"></i>
+                    </a>
+                    <div class="collapse" id="ui-user">
+                        <ul class="nav flex-column sub-menu">
+<!--                            <li class="nav-item"><a class="nav-link" href="">Add</a></li>-->
+                            <li class="nav-item"><a class="nav-link" href="{% url 'display_users' %}">View</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </li>
+
+
                 <li class="nav-item nav-category">E-Commerce</li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'index' %}">
@@ -308,6 +327,8 @@
                         </ul>
                     </div>
                 </li>
+
+
 
 
             </ul>

@@ -8,6 +8,12 @@ urlpatterns = [
     path('admin_logout/', views.admin_logout, name="admin_logout"),
     path('index/', views.display_index, name="index"),
 
+
+    path('display_users/', views.display_users, name="display_users"),
+    path('edit_users/<int:u_id>/', views.edit_users, name="edit_users"),
+    path('update_user/<int:u_id>/', views.update_user, name="update_user"),
+    path('delete_user/<int:u_id>/', views.delete_user, name="delete_user"),
+
     path('add_category/', views.add_category, name="add_category"),
     path('display_category/', views.display_category, name="display_category"),
     path('save_category/', views.save_category, name="save_category"),

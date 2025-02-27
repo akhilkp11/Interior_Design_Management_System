@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from AdminApp.models import CategoryDb, ProductDb, DesignCategoryDb, DesignsDb
-from WebApp.models import ContactDb
+from WebApp.models import ContactDb, UserRegistrationDb
 from DesignApp.models import ConsultDb
 from django.utils.datastructures import MultiValueDictKeyError
 from django.core.files.storage import FileSystemStorage
@@ -264,3 +264,31 @@ def delete_designs(request, d_id):
 def display_consultation(request):
     data = ConsultDb.objects.all()
     return render(request, "interior/display_consultation.html", {'data': data})
+
+
+def display_users(request):
+    data = UserRegistrationDb.objects.all()
+    return render(request, "display_users.html", {'data': data})
+
+
+def edit_users(request, u_id):
+    data = UserRegistrationDb.objects.get(id=u_id)
+    return render(request, "edit_users.html", {'data': data})
+
+def update_user(request, u_id):
+    un = request.POST.get('username')
+    ps1 = request.POST.get('password')
+    ps2 = request.POST.get('conf_password')
+    em = request.POST.get('email')
+    cont = request.POST.get('contact')
+    if ps1 != ps2:
+        messages.error(request, "Passwords do not match.")
+        return redirect(display_users)
+    UserRegistrationDb.objects.filter(id=u_id).update(username=un, password=ps1, conf_password=ps2, email=em, contact=cont)
+    return redirect(display_users)
+
+
+def delete_user(request, u_id):
+    x = UserRegistrationDb.objects.get(id=u_id)
+    x.delete()
+    return redirect(display_users)

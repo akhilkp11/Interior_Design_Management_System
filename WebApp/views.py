@@ -23,7 +23,7 @@ def user_signup(request):
             messages.error(request, "Passwords do not match.")
             return redirect(signup_page)
 
-        if UserRegistrationDb.objects.filter(username=un).exist():
+        if UserRegistrationDb.objects.filter(username=un).exists():
             messages.error(request, "Username already taken. Please choose another one.")
 
         obj = UserRegistrationDb(username=un, password=ps1, conf_password=ps2, email=em, contact=cont)

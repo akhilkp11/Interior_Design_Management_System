@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>display users</title>
+</head>
+<body>
+<div class="col-lg-12 stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Table with users</h4>
+            <!--                    <p class="card-description"> Add class <code>.table-{color}</code>-->
+            <!--                    </p>-->
+            <div class="table-responsive ">
+                <table class="table table-bordered ">
+                    <thead>
+                    <tr>
+                        <th> #</th>
+                        <th> User Name</th>
+                        <th> Password</th>
+                        <th> Confirm Password</th>
+                        <th> Email</th>
+                        <th> Contact</th>
+                        <th> Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for d in data %}
+                    <tr>
+                        <td> {{forloop.counter}}</td>
+                        <td> {{d.username}}</td>
+                        <td> {{d.password}}</td>
+                        <td> {{d.conf_password}}</td>
+                        <td> {{d.email}}</td>
+                        <td> {{d.contact}}</td>
+
+                        <td>
+                            <a href="{% url 'edit_users' u_id=d.id %}">
+                                <button class="btn btn-outline-primary">Edit</button>
+                            </a>
+                            <a href="{% url 'delete_user' u_id=d.id %}">
+                                <button class="btn btn-outline-danger">Delete</button>
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>
+{% endblock %}
