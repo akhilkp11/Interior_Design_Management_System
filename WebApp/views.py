@@ -76,23 +76,27 @@ def save_contact_homepage(request):
 # E-Commerce section
 def display_shop(request):
     data = CategoryDb.objects.all()
-    return render(request, "shop_page.html", {'data': data})
+    cart_count = CartDb.objects.filter(Username=request.session['username']).count()
+    return render(request, "shop_page.html", {'data': data, 'cart_count': cart_count})
 
 
 def all_products(request):
     products = ProductDb.objects.all()
-    return render(request, "all_products.html", {'products': products})
+    cart_count = CartDb.objects.filter(Username=request.session['username']).count()
+    return render(request, "all_products.html", {'products': products, 'cart_count': cart_count})
 
 
 def filtered_products(request, cat):
     data = ProductDb.objects.filter(category_name=cat)
+    cart_count = CartDb.objects.filter(Username=request.session['username']).count()
     category = cat
-    return render(request, "filtered_products.html", {'data': data, 'category': category})
+    return render(request, "filtered_products.html", {'data': data, 'category': category, 'cart_count': cart_count})
 
 
 def single_product(request, pr_id):
     item = ProductDb.objects.get(id=pr_id)
-    return render(request, "single_product.html", {'item': item})
+    cart_count = CartDb.objects.filter(Username=request.session['username']).count()
+    return render(request, "single_product.html", {'item': item, 'cart_count': cart_count})
 
 
 def save_cart(request):
@@ -124,6 +128,7 @@ def cart_page(request):
     Discount = 0
     total = 0
     data = CartDb.objects.filter(Username=request.session['username'])
+    cart_count = CartDb.objects.filter(Username=request.session['username']).count()
     for i in data:
         sub_total += i.TotalPrice
 
@@ -139,8 +144,14 @@ def cart_page(request):
         'sub_total': sub_total,
         'Discount': Discount,
         'total': total,
+        'cart_count': cart_count
     }
     return render(request, "cart.html", context)
+
+
+def return_policy(request):
+    cart_count = CartDb.objects.filter(Username=request.session['username']).count()
+    return render(request, "return_policy.html", {'cart_count': cart_count})
 
 
 def checkout(request):
@@ -149,6 +160,7 @@ def checkout(request):
     total = 0
 
     data = CartDb.objects.filter(Username=request.session['username'])
+    cart_count = CartDb.objects.filter(Username=request.session['username']).count()
     for i in data:
         sub_total += i.TotalPrice
 
@@ -168,6 +180,7 @@ def checkout(request):
         'Discount': Discount,
         'shipping_amount': shipping_amount,
         'total': total,
+        'cart_count': cart_count
     }
     return render(request, "checkout.html", context)
 
@@ -212,11 +225,13 @@ def payment(request):
 
 
 def about(request):
-    return render(request, "about.html")
+    cart_count = CartDb.objects.filter(Username=request.session['username']).count()
+    return render(request, "about.html", {'cart_count': cart_count})
 
 
 def contact(request):
-    return render(request, "contact.html")
+    cart_count = CartDb.objects.filter(Username=request.session['username']).count()
+    return render(request, "contact.html", {'cart_count': cart_count})
 
 
 def save_contact(request):

@@ -24,7 +24,7 @@
 <nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" aria-label="Furni navigation bar">
 
     <div class="container">
-        <a class="navbar-brand" href="{% url 'shop' %}">Shop<span>.</span></a>
+        <a class="navbar-brand" href="{% url 'shop' %">Shop<span>.</span></a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni"
                 aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,8 +38,8 @@
                 </li>
                 <li><a class="nav-link" href="{% url 'shop' %}">Shop</a></li>
                 <li><a class="nav-link" href="{% url 'about' %}">About us</a></li>
-<!--                <li><a class="nav-link" href="services.html">Services</a></li>-->
-<!--                <li><a class="nav-link" href="blog.html">Blog</a></li>-->
+                <!--                <li><a class="nav-link" href="services.html">Services</a></li>-->
+                <!--                <li><a class="nav-link" href="blog.html">Blog</a></li>-->
                 <li><a class="nav-link" href="{% url 'contact' %}">Contact us</a></li>
             </ul>
 
@@ -57,7 +57,8 @@
                     </ul>
                 </li>
                 <li><a class="nav-link" href="{% url 'cart_page' %}"><img
-                        src="{% static 'shopstyle/images/cart.svg' %}"><span style="color:white;">[{{cart_count}}]</span></a></li>
+                        src="{% static 'shopstyle/images/cart.svg' %}"><span
+                        style="color:white;">[{{cart_count}}]</span></a></li>
             </ul>
         </div>
     </div>
@@ -69,12 +70,15 @@
 <div class="hero">
     <div class="container">
         <div class="row justify-content-between">
-            <div class="col-lg-5">
-                <div class="intro-excerpt">
-                    <h1>Cart</h1>
+            <div class="col-12">
+                <div class="">
+                    <h1>Return Policy for Interior Design Products</h1>
                 </div>
-                <div class="d-flex" >
-                    <a href="{% url 'return_policy' %}"><button class="btn" style="justify-contents-end;">Our Return Policy</button></a>
+                <div class="d-flex">
+                    <a href="">
+<!--                        <button class="btn" style="justify-contents-end;">Our Return Policy</button>-->
+
+                    </a>
                 </div>
             </div>
             <div class="col-lg-7">
@@ -88,111 +92,61 @@
 
 <div class="untree_co-section before-footer-section">
     <div class="container">
-        <div class="row mb-5">
-            <form class="col-md-12" method="post">
-                <div class="site-blocks-table">
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th class="product-thumbnail">Image</th>
-                            <th class="product-name">Product</th>
-                            <th class="product-price">Price</th>
-                            <th class="product-quantity">Quantity</th>
-                            <th class="product-total">Total</th>
-                            <th class="product-remove">Remove</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {% for d in data %}
-                        <tr>
-                            <td class="product-thumbnail">
-                                <img src="{{d.Pro_Image.url}}" alt="Image" class="img-fluid">
-                            </td>
-                            <td class="product-name">
-                                <h2 class="h5 text-black">{{d.ProductName}}</h2>
-                            </td>
-                            <td>Rs {{d.Price}}</td>
-                            <td>{{d.Quantity}}</td>
-                            <td>Rs {{d.TotalPrice}}</td>
-                            <td><a href="{% url 'delete_cart_item' c_id=d.id %}" class="btn btn-black btn-sm">X</a></td>
-                        </tr>
-                        {% endfor %}
+        <div class="row ">
 
-                        </tbody>
-                    </table>
-                </div>
-            </form>
+
+            <h2>1. Eligibility for Returns:</h2>
+            <p>We want you to love your purchase! If you're not fully satisfied with your items, you can return most
+                products within <strong>30 days</strong> of delivery for a refund or store credit, subject to the
+                conditions below. Some items, however, are non-returnable due to hygiene or custom-made nature.</p>
+
+            <h2>2. Non-Returnable Items:</h2>
+            <ul>
+                <li>Custom or made-to-order products (e.g., personalized furniture, custom-sized rugs)</li>
+                <li>Clearance or final sale items</li>
+                <li>Gift cards or vouchers</li>
+                <li>Special order items or bespoke design pieces</li>
+                <li>Items that have been used, altered, or assembled</li>
+            </ul>
+
+            <h2>3. Condition of Return:</h2>
+            <p>To be eligible for a return, the product must be in its <strong>original, unused condition</strong>. It
+                must also be in the original packaging, with all tags, labels, and accessories intact.</p>
+
+            <h2>4. Return Process:</h2>
+            <p>To initiate a return, please follow these steps:</p>
+            <ol>
+                <li>Contact our customer service team at <strong>[email/phone number]</strong> with your order number
+                    and reason for return.
+                </li>
+                <li>Once your return is approved, we will provide you with a <strong>return authorization</strong> and a
+                    prepaid return shipping label.
+                </li>
+                <li>Pack the items securely in their original packaging, including any documentation and accessories.
+                </li>
+                <li>Drop off the return package at the nearest carrier location.</li>
+            </ol>
+
+            <h2>5. Refunds:</h2>
+            <p>Refunds will be processed to the original payment method once we receive the returned item. Please allow
+                up to <strong>7–10 business days</strong> for the refund to appear in your account. The shipping costs
+                for the return are the responsibility of the customer unless the product was defective or damaged.</p>
+
+            <h2>6. Damaged or Defective Items:</h2>
+            <p>If you receive a damaged or defective product, please contact our customer service team <strong>within 5
+                business days</strong> of receiving your order with photos of the damage. We will either issue a full
+                refund or send you a replacement, including return shipping for the damaged product.</p>
+
+            <h2>7. Exchanges:</h2>
+            <p>If you wish to exchange an item, you will need to return the original item and place a new order. If the
+                exchange is due to damage or defect, we will cover the shipping costs.</p>
+
+            <h2>8. International Returns:</h2>
+            <p>For international orders, the customer is responsible for return shipping costs. Please note that customs
+                duties, taxes, and fees are non-refundable.</p>
         </div>
 
-        <div class="row">
-            <div class="col-md-6">
-                <div class="row mb-5">
-                    <div class="col-md-6 mb-3 mb-md-0">
-<!--                        <button class="btn btn-black btn-sm btn-block">Update Cart</button>-->
-                    </div>
-                    <div class="col-md-6">
-<!--                        <button class="btn btn-outline-black btn-sm btn-block">Continue Shopping</button>-->
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-<!--                        <label class="text-black h4" for="coupon">Coupon</label>-->
-<!--                        <p>Enter your coupon code if you have one.</p>-->
-                    </div>
-                    <div class="col-md-8 mb-3 mb-md-0">
-<!--                        <input type="text" class="form-control py-3" id="coupon" placeholder="Coupon Code">-->
-                    </div>
-                    <div class="col-md-4">
-<!--                        <button class="btn btn-black">Apply Coupon</button>-->
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 pl-5">
-                <div class="row justify-content-end">
-                    <div class="col-md-7">
-                        <div class="row">
-                            <div class="col-md-12 text-right border-bottom mb-5">
-                                <h3 class="text-black h4 text-uppercase">Cart Totals</h3>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <span class="text-black">Subtotal</span>
-                            </div>
-                            <div class="col-md-6 text-right">
-                                <strong class="text-black">Rs {{sub_total}}</strong>
-                            </div>
-                        </div>
 
-                        <div class="row mb-5">
-                            <div class="col-md-6">
-                                <span class="text-black">Discount</span>
-                            </div>
-                            <div class="col-md-6 text-right">
-                                <strong class="text-black">Rs {{Discount}}</strong>
-                            </div>
-                        </div>
-
-                        <div class="row mb-5">
-                            <div class="col-md-6">
-                                <span class="text-black">Total</span>
-                            </div>
-                            <div class="col-md-6 text-right">
-                                <strong class="text-black">Rs {{total}}</strong>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-12">
-                                <button class="btn btn-black btn-lg py-3 btn-block"
-                                        onclick="window.location='{% url 'checkout' %}'">Proceed To Checkout
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 
