@@ -42,7 +42,7 @@ def user_login(request):
         if UserRegistrationDb.objects.filter(username=username, password=password).exists():
             request.session['username'] = username
             request.session['password'] = password
-            messages.success(request, "Welcome to Home Page")
+            messages.success(request, "Welcome to Heavenly Home")
             return redirect(display_home)
         else:
             messages.warning(request, "Invalid username or password")

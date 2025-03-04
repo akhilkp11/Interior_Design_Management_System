@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
-from AdminApp.models import DesignCategoryDb, DesignsDb
+from AdminApp.models import DesignCategoryDb, DesignsDb, DailyProgressDb
 from DesignApp.models import ConsultDb
+from WebApp.models import UserRegistrationDb
 from django.contrib import messages
 
 
@@ -66,11 +67,13 @@ def consultation_submit(request):
         design_id = request.POST.get('design_id')
         design_estimate = request.POST.get('design_estimate')
         design_dimension = request.POST.get('design_dimension')
+        un = request.session['username']
+        # user = UserRegistrationDb.objects.get(username=un)
 
         # Save data to ConsultDb
         consult_entry = ConsultDb(name=name, email=email, mobile=mobile, location=location, design_id=design_id,
                                   design_category=design_category, design_name=design_name,
-                                  design_estimate=design_estimate, design_dimension=design_dimension)
+                                  design_estimate=design_estimate, design_dimension=design_dimension, username=un)
         consult_entry.save()
         messages.success(request, "Booked your Consultation. We will reach you soon")
 
@@ -95,8 +98,19 @@ def download_design_pdf(request, d_id):
         return HttpResponse('Error generating PDF', status=500)
 
     return response
-    # return render(request, "download_design_pdf.html", {'design': design})
 
+
+# interior design booked section
+def booked_design_page(request):
+    un = request.session['username']
+    data = ConsultDb.objects.filter(username=un)
+    return render(request, "my_design_bookings.html", {'data': data})
+
+
+def daily_progress(request, c_id):
+    consult = ConsultDb.objects.get(id=c_id)
+    design = DailyProgressDb.objects.filter(consult=consult)
+    return render(request, "design_daily_progress.html", {'design': design, 'consult': consult})
 
 # Estimate Calculate section
 

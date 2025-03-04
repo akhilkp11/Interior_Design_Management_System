@@ -1,5 +1,5 @@
-from django.shortcuts import render, redirect
-from AdminApp.models import CategoryDb, ProductDb, DesignCategoryDb, DesignsDb
+from django.shortcuts import render, redirect, get_object_or_404
+from AdminApp.models import CategoryDb, ProductDb, DesignCategoryDb, DesignsDb, DailyProgressDb
 from WebApp.models import ContactDb, UserRegistrationDb
 from DesignApp.models import ConsultDb
 from django.utils.datastructures import MultiValueDictKeyError
@@ -7,6 +7,7 @@ from django.core.files.storage import FileSystemStorage
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
+
 
 # Create your views here.
 
@@ -23,6 +24,7 @@ def admin_login(request):
             x = authenticate(username=username, password=password)
             if x is not None:
                 login(request, x)
+                # session creation
                 request.session['username'] = username
                 request.session['password'] = password
                 messages.success(request, "Welcome to  Admin Dashboard..!!")
@@ -264,6 +266,42 @@ def delete_designs(request, d_id):
 def display_consultation(request):
     data = ConsultDb.objects.all()
     return render(request, "interior/display_consultation.html", {'data': data})
+
+
+def book_consult_status(request, c_id):     # update ConsultDb status to booked
+    obj = ConsultDb.objects.get(id=c_id)
+    obj.status = 'booked'
+    obj.save()
+    return redirect(display_consultation)
+
+
+def work_progress(reqest, c_id):
+    # Safely fetch the ConsultDb instance or return 404 if it doesn't exist
+    consult = get_object_or_404(ConsultDb, id=c_id)
+    # Fetch all DailyProgressDb entries related to the consult and order by TimeStamp in reverse
+    data = DailyProgressDb.objects.filter(consult=consult).order_by('-TimeStamp')
+    return render(reqest, "interior/work_update.html", {'consult': consult, 'data': data})
+
+
+def save_daily_progress(request, c_id):
+    if request.method == 'POST':
+        work_details = request.POST.get('work_details')  # Get work details from the form
+        work_image = request.FILES.get('work_image')  # Get uploaded image
+
+        # Assuming you have a consult instance (you may get it dynamically depending on your use case)
+        consult = ConsultDb.objects.get(id=c_id)  # Or use appropriate logic to fetch the consult
+
+        # Create and save the DailyProgressDb instance
+        obj = DailyProgressDb(WorkDetails=work_details, WorkImage=work_image, consult=consult)
+        obj.save()
+        return redirect(display_consultation)
+
+
+def complete_consult_status(request, c_id):
+    obj = ConsultDb.objects.get(id=c_id)
+    obj.status = 'completed'
+    obj.save()
+    return redirect(display_consultation)
 
 
 def display_users(request):

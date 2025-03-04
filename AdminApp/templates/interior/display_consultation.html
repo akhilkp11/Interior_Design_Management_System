@@ -27,7 +27,8 @@
                     <th> Estimate</th>
                     <th> Dimension</th>
                     <th> Created at</th>
-<!--                    <th> Action</th>-->
+                    <th> Status</th>
+                    <th> Action</th>
 
                 </tr>
                 </thead>
@@ -45,9 +46,26 @@
                     <td>{{d.design_estimate}}</td>
                     <td>{{d.design_dimension}}</td>
                     <td>{{d.created_at}}</td>
-<!--                    <td>-->
-<!--                        <button class="btn btn-outline-danger">delete</button>-->
-<!--                    </td>-->
+                    <td>
+                        {{d.status}}
+                         <!-- Dropdown for selecting status -->
+<!--                            <form method="POST" action="">-->
+<!--                                {% csrf_token %}-->
+<!--                                <select name="status" class="form-control">-->
+<!--                                    <option value="consult" {% if d.status == 'consult' %}selected{% endif %}>Consult</option>-->
+<!--                                    <option value="booked" {% if d.status == 'booked' %}selected{% endif %}>Booked</option>-->
+<!--                                    <option value="completed" {% if d.status == 'completed' %}selected{% endif %}>Completed</option>-->
+<!--                                </select>-->
+<!--                                <button type="submit" class="btn btn-outline-primary mt-2">Update Status</button>-->
+<!--                            </form>-->
+                    </td>
+                    <td>
+                        {% if d.status == 'consult' %}
+                        <a href="{% url 'book_consult_status' c_id=d.id %}"><button class="btn btn-outline-info">book</button></a>
+                        {% else %}
+                        <a href="{% url 'work_progress' c_id=d.id %}"><button class="btn btn-outline-success">work progress</button></a>
+                        {% endif %}
+                    </td>
                 </tr>
                 {% endfor %}
 

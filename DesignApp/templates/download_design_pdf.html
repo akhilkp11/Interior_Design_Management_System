@@ -77,10 +77,13 @@
         <p><label>Estimate: </label> Rs {{ design.Estimate }}</p>
     </div>
     {% if design.Image %}
-    <div class="image-container">
-        <label>Image:</label>
-<!--        <img src="{{ design.Image.url }}" width="200px" alt="Design Image">-->
-        <img src="data:image/jpeg;base64,{{ design.Image.base64 }}" width="200px" alt="Design Image">
+    <div class="">
+        <label>Image:</label><br>
+        <div class="image-container">
+            <img src="http://127.0.0.1:8000/{{ design.Image.url }}" width="400px" style="padding:20px" alt="Design Image">
+        </div>
+
+<!--        <img src="data:image/jpeg;base64,{{ design.Image.base64 }}" width="200px" alt="Design Image">-->
 
     </div>
     {% endif %}

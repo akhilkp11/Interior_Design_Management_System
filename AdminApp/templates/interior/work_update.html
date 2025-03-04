@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>work update</title>
+</head>
+<body>
+<div class="p-3">
+    <h1>Update here</h1>
+
+    <form method="post" action="{% url 'save_daily_progress' c_id=consult.id %}" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <label>work details : </label><br>
+        <textarea class=" row-6 col-10 " placeholder="work details" name="work_details"></textarea><br>
+
+        <label>Upload image :</label>
+        <input class="m-3" type="file" placeholder="upload image" name="work_image"><br>
+        <button type="submit" class="btn btn-success">Submit</button>
+    </form>
+    <hr>
+</div>
+
+
+<div class="container-fluid">
+    {% for d in data %}
+    <div class="row m-3">
+        <div class="col-12 m-2 bg-white">
+            <h3>{{forloop.counter}}</h3><br>
+            <p>{{d.WorkDetails}}</p>
+            {% if d.WorkImage %}
+            <img src="{{d.WorkImage.url}}" width="300px">
+            {% endif %}
+            <h5 class="d-flex justify-content-end">{{d.TimeStamp}}</h5>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+</body>
+</html>
+{% endblock %}

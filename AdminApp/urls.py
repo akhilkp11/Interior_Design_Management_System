@@ -49,6 +49,9 @@ urlpatterns = [
 
 
     path('display_consultation/', views.display_consultation, name="display_consultation"),
+    path('book_consult_status/<int:c_id>/', views.book_consult_status, name="book_consult_status"),
+    path('work_progress/<int:c_id>/', views.work_progress, name="work_progress"),
+    path('save_daily_progress/<int:c_id>/', views.save_daily_progress, name="save_daily_progress"),
 
 
 ]

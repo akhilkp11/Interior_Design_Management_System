@@ -1,5 +1,5 @@
 from django.db import models
-
+from DesignApp.models import ConsultDb
 
 # Create your models here.
 
@@ -41,7 +41,11 @@ class DesignsDb(models.Model):
         return self.Name
 
 
-
+class DailyProgressDb(models.Model):
+    WorkDetails = models.CharField(max_length=200, null=True, blank=True)
+    WorkImage = models.ImageField(upload_to="Working progress", null=True, blank=True)
+    consult = models.ForeignKey(ConsultDb, on_delete=models.CASCADE)
+    TimeStamp = models.DateTimeField(auto_now_add=True)
 
 
 
