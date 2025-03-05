@@ -58,7 +58,9 @@
                     </ul>
                 </li>
                 <li><a class="nav-link" href="{% url 'cart_page' %}"><img
-                        src="{% static 'shopstyle/images/cart.svg' %}"><span style="color:white;">[{{cart_count}}]</span></a></li>
+                        src="{% static 'shopstyle/images/cart.svg' %}">
+                    <span style="color:white;">{% if request.session.username %} [{{cart_count}}] {% else %}[X] {% endif %}</span>
+                </a></li>
             </ul>
         </div>
     </div>

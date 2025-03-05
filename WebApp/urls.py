@@ -2,7 +2,7 @@ from django.urls import path
 from WebApp import views
 
 urlpatterns = [
-    path('home/', views.display_home, name="home"),
+    path('', views.display_home, name="home"),
     path('save_contact_homepage/', views.save_contact_homepage, name="save_contact_homepage"),
     path('shop/', views.display_shop, name="shop"),
     path('about/', views.about, name="about"),
@@ -20,7 +20,7 @@ urlpatterns = [
     path('save_order/', views.save_order, name="save_order"),
     path('payment/', views.payment, name="payment"),
 
-    path('', views.signup_page, name="signup_page"),
+    path('signup_page', views.signup_page, name="signup_page"),
     # path('signup_page/', views.signup_page, name="signup_page"),
     path('user_signup/', views.user_signup, name="user_signup"),
     path('user_login/', views.user_login, name="user_login"),

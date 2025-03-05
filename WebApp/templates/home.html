@@ -37,11 +37,17 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link" href="{% url 'shop'  %}" style="color:white;">Products</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'category_page' %}" style="color:white;">Designs</a></li>
-                <li class="nav-item"><a class="nav-link" href="#contact" style="color:white;">Contact</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'about'  %}" style="color:white;">About us</a></li>
-                <li class="nav-item dropdown">
+                {% if request.session.username %}
+                <li class="nav-item mt-2"><a class="nav-link" href="{% url 'shop'  %}" style="color:white;">Products</a></li>
+                {% else %}
+                <li class="nav-item mt-2"><a class="nav-link" href="" style="color:white;">Products</a></li>
+                {% endif %}
+                <li class="nav-item mt-2"><a class="nav-link" href="{% url 'category_page' %}" style="color:white;">Designs</a></li>
+                <li class="nav-item mt-2"><a class="nav-link" href="#contact" style="color:white;">Contact</a></li>
+                <li class="nav-item mt-2"><a class="nav-link" href="{% url 'about'  %}" style="color:white;">About us</a></li>
+
+                {% if request.session.username %}
+                <li class="nav-item dropdown mt-2">
                     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
                        aria-expanded="false"><i class="fa-solid fa-user"></i></a>
                     <ul class="dropdown-menu">
@@ -52,6 +58,11 @@
                         <li><a class="dropdown-item" href="{% url 'user_sign_out' %}">Log out</a></li>
                     </ul>
                 </li>
+                {% else %}
+                <li class="nav-item"><a class="nav-link" href="{% url 'signup_page' %}" style="color:white;">
+                    <button class="btn btn-primary m">login / sign up</button></a>
+                </li>
+                {% endif %}
             </ul>
         </div>
     </div>
