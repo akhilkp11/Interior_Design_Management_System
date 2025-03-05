@@ -78,15 +78,35 @@
 
             <!-- Start Column 1 -->
             {% for d in data %}
-            <div class="col-12 col-md-4 col-lg-3 mb-5">
-                <a class="product-item" href="{% url 'daily_progress' c_id=d.id %}">
-                    <h3 class="product-title p-2">name : {{d.name}}</h3>
-                    <h3 class="product-title p-2">design : {{d.design_name}}</h3>
-<!--                    <h3 class="product-title p-2">location : {{d.location}}</h3>-->
-
-                </a>
-            </div>
+<!--            <div class="col-12 col-md-4 col-lg-3 mb-5">-->
+<!--                <a class="product-item" href="{% url 'daily_progress' c_id=d.id %}">-->
+<!--                    <h3 class="product-title p-2">name : {{d.name}}</h3>-->
+<!--                    <h3 class="product-title p-2">design : {{d.design_name}}</h3>-->
+<!--                </a>-->
+<!--            </div>-->
             {% endfor %}
+            <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Name</th>
+      <th scope="col">Design</th>
+      <th scope="col">Location</th>
+      <th scope="col">Estimate</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for d in data %}
+    <tr>
+      <th scope="row"><a >{{d.id}}</a></th>
+      <td>{{d.name}}</td>
+      <td><a href="{% url 'daily_progress' c_id=d.id %}">{{d.design_name}}</a></td>
+      <td>{{d.location}}</td>
+      <td>{{d.design_estimate}}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
 
             <!-- End Column 1 -->
 

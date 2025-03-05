@@ -44,9 +44,11 @@
                 <li class="nav-item ">
                     <a class="nav-link" href="{% url 'estimate_page' %}">Estimate Calculator</a>
                 </li>
+                {% if request.session.username %}
                 <li class="nav-item ">
                     <a class="nav-link" href="{% url 'booked_design_page' %}">My booked designs</a>
                 </li>
+                {% endif %}
 
             </ul>
 
@@ -126,7 +128,7 @@
                     </div>
                 </form>
 
-
+            <label class="text-black mt-3"><span class="text-danger">*</span> if field is not selecting  fill field with zero</label>
             </div>
 
 

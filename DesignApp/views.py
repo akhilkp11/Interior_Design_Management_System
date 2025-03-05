@@ -109,7 +109,8 @@ def booked_design_page(request):
 
 def daily_progress(request, c_id):
     consult = ConsultDb.objects.get(id=c_id)
-    design = DailyProgressDb.objects.filter(consult=consult)
+    # design = DailyProgressDb.objects.filter(consult=consult)
+    design = DailyProgressDb.objects.filter(consult=consult).order_by('-TimeStamp')
     return render(request, "design_daily_progress.html", {'design': design, 'consult': consult})
 
 # Estimate Calculate section

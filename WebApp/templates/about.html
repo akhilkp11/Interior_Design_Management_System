@@ -45,7 +45,7 @@
             </ul>
 
             <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
-
+                {% if request.session.username %}
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
                        aria-expanded="false"><img src="{% static 'shopstyle/images/user.svg' %}"></a>
@@ -57,6 +57,7 @@
                         <li><a class="dropdown-item" href="{% url 'user_sign_out' %}">Log out</a></li>
                     </ul>
                 </li>
+                {% endif %}
 <!--                <li><a class="nav-link" href="{% url 'cart_page' %}"><img-->
 <!--                        src="{% static 'shopstyle/images/cart.svg' %}"><span style="color:white;">[{{cart_count}}]</span></a></li>-->
             </ul>
@@ -215,7 +216,7 @@
             <div class="col-12 col-md-6 col-lg-3 mb-5 mb-md-0">
                 <img src="{% static 'shopstyle/images/person_4.jpg' %}" class="img-fluid mb-5">
 
-                <h3 clas><a href="#"><span class="">Kathryn</span> Ryan</a></h3>
+                <h3 ><a href="#"><span class="">Kathryn</span> Ryan</a></h3>
                 <span class="d-block position mb-4">CEO, Founder, Atty.</span>
                 <p>Separated they live in.
                     Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language

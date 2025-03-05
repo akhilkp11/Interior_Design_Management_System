@@ -40,7 +40,7 @@
                 {% if request.session.username %}
                 <li class="nav-item mt-2"><a class="nav-link" href="{% url 'shop'  %}" style="color:white;">Products</a></li>
                 {% else %}
-                <li class="nav-item mt-2"><a class="nav-link" href="" style="color:white;">Products</a></li>
+                <li class="nav-item mt-2"><a class="nav-link" data-bs-toggle="modal" data-bs-target="#exampleModal" style="color:white;" >Products</a></li>
                 {% endif %}
                 <li class="nav-item mt-2"><a class="nav-link" href="{% url 'category_page' %}" style="color:white;">Designs</a></li>
                 <li class="nav-item mt-2"><a class="nav-link" href="#contact" style="color:white;">Contact</a></li>
@@ -64,6 +64,7 @@
                 </li>
                 {% endif %}
             </ul>
+
         </div>
     </div>
 </nav>
@@ -201,6 +202,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 
+
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <!--javascript file link-->
 
@@ -226,6 +228,25 @@
 {% endif %}
 {% endfor %}
 {% endif %}
+
+            <!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Message</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Please login to view products</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+      </div>
+    </div>
+  </div>
+</div>
 
 </body>
 </html>

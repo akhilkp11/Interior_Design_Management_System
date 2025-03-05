@@ -56,7 +56,7 @@ def user_login(request):
 def user_sign_out(request):
     del request.session['username']
     del request.session['password']
-    return redirect(signup_page)
+    return redirect(display_home)
 
 
 def display_home(request):
@@ -225,7 +225,10 @@ def payment(request):
 
 
 def about(request):
-    cart_count = CartDb.objects.filter(Username=request.session['username']).count()
+    try:
+        cart_count = CartDb.objects.filter(Username=request.session['username']).count()
+    except:
+        cart_count = None
     return render(request, "about.html", {'cart_count': cart_count})
 
 
