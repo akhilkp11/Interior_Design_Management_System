@@ -26,6 +26,7 @@ urlpatterns = [
     path('user_login/', views.user_login, name="user_login"),
     path('user_sign_out/', views.user_sign_out, name="user_sign_out"),
     path('edit_profile_page/', views.edit_profile_page, name="edit_profile_page"),
+    path('update_user/', views.update_user, name="update_user"),
 
     # design section
     path('homepage/', views.homepage, name="homepage")
