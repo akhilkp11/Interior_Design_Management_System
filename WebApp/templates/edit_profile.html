@@ -1,5 +1,5 @@
 <!doctype html>
-{%load static %}
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -15,7 +15,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link href="{% static 'shopstyle/css/tiny-slider.css' %}" rel="stylesheet">
     <link href="{% static 'shopstyle/css/style.css' %}" rel="stylesheet">
-    <title>Interior Design Management system product shop </title>
+    <title>Interior design management system </title>
 </head>
 
 <body>
@@ -24,7 +24,7 @@
 <nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" aria-label="Furni navigation bar">
 
     <div class="container">
-        <a class="navbar-brand" href="{% url 'shop' %}">Shop<span>.</span></a>
+
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni"
                 aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,11 +36,11 @@
                 <li class="nav-item ">
                     <a class="nav-link" href="{% url 'home' %}">Home</a>
                 </li>
-                <li class="active"><a class="nav-link" href="{% url 'shop' %}">Shop</a></li>
-                <li><a class="nav-link" href="{% url 'about' %}">About us</a></li>
-<!--                <li><a class="nav-link" href="services.html">Services</a></li>-->
-<!--                <li><a class="nav-link" href="blog.html">Blog</a></li>-->
-                <li><a class="nav-link" href="{% url 'contact' %}">Contact us</a></li>
+                <!--                <li><a class="nav-link" href="{% url 'shop' %}">Shop</a></li>-->
+                <!--                <li><a class="nav-link" href="{% url 'about' %}">About us</a></li>-->
+                <!--                <li><a class="nav-link" href="services.html">Services</a></li>-->
+                <!--                <li><a class="nav-link" href="blog.html">Blog</a></li>-->
+                <!--                <li><a class="nav-link" href="{% url 'contact' %}">Contact us</a></li>-->
             </ul>
 
             <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
@@ -56,8 +56,9 @@
                         <li><a class="dropdown-item" href="{% url 'user_sign_out' %}">Log out</a></li>
                     </ul>
                 </li>
-                <li><a class="nav-link" href="{% url 'cart_page' %}"><img
-                        src="{% static 'shopstyle/images/cart.svg' %}"><span style="color:white;">[{{cart_count}}]</span></a></li>
+                <!--                <li><a class="nav-link" href="{% url 'cart_page' %}"><img-->
+                <!--                        src="{% static 'shopstyle/images/cart.svg' %}"><span-->
+                <!--                        style="color:white;">[{{cart_count}}]</span></a></li>-->
             </ul>
         </div>
     </div>
@@ -69,10 +70,11 @@
 <div class="hero">
     <div class="container">
         <div class="row justify-content-between">
-            <div class="col-lg-5">
-                <div class="intro-excerpt">
-                    <h1>Single Products</h1>
+            <div class="col-12">
+                <div class="">
+                    <h1>Edit Profile</h1>
                 </div>
+
             </div>
             <div class="col-lg-7">
 
@@ -83,65 +85,60 @@
 <!-- End Hero Section -->
 
 
-<div class="untree_co-section product-section before-footer-section">
+<div class="untree_co-section before-footer-section">
     <div class="container">
-        <h1 class="text-center mb-5">{{item.product_name}} </h1>
         <div class="row">
 
-            <!-- Start Column 1 font-family: "Inter", sans-serif; -->
-            <div class="">
-                <div class="container">
-                    <div class="row justify-content-between">
-                        <div class="col-lg-6 mb-5 mb-lg-0">
-                            <div class="img-grid">
-                                <!--										<div class="grid grid-1"><img src="images/img-grid-1.jpg" alt="Untree.co"></div>-->
-                                <!--										<div class="grid grid-2"><img src="images/img-grid-2.jpg" alt="Untree.co"></div>-->
-                                <div class=""><img src="{{item.product_image.url}}" style="width:500px;"
-                                                   alt="Untree.co"></div>
-                            </div>
+            <div class="d-flex justify-content-center">
+                <form method="post" action="" class="col-8">
+                    {% csrf_token %}
+                    <div class="row mb-3">
+                        <div class="col-4">
+                            <label>User Name: </label>
                         </div>
-                        <div class="col-lg-6 ps-lg-5">
-                            <!--form starts-->
-                            <form method="post" action="{% url 'save_cart' %}">
-                                {% csrf_token %}
-                                <h2 class="section-title mb-4">Description</h2>
-                                <!--									<h2 class="section-title mb-4">{{item.product_name}}</h2>-->
-                                <p class="mb-4">{{item.Description}}</p>
-                                <!--									<h3 class="section-title mb-4">Price : Rs {{item.price}}</h3>-->
-
-                                <div class="justify-content-between d-flex col-lg-6 ps-lg-3">
-                                    <h3 class="mb-4">Price</h3>
-                                    <h3>Rs {{item.price}}</h3>
-                                </div>
-
-                                <div class="justify-content-between d-flex ">
-                                    <h3 class="mb-4">Quantity</h3>
-                                    <input class="mb-4  text-center " id="quantity" name="quantity" type="number" min="1" required>
-                                    <input type="hidden" id="price" name="price" value="{{item.price}}">
-                                </div>
-
-                                <div class="justify-content-between d-flex ">
-                                    <h3 class="mb-4">Total</h3>
-                                    <input class="mb-4  text-center" id="total" name="total" type="text">
-                                </div>
-                                <input type="hidden" id="ProductName" name="productName" value="{{item.product_name}}">
-                                <input type="hidden" name="userName" value="{{request.session.username}}">
-
-
-
-                                <p><a href="" class="mt-4">
-                                    <button type="submit" class="btn btn-lg">Add to Cart</button>
-                                </a></p>
-                            </form>
-                            <!--form ends-->
+                        <div class="col-8">
+                            <input type="text" name="username" class="form-control" placeholder="User Name" value="{{data.username}}" readonly>
                         </div>
                     </div>
-                </div>
+                    <div class="row mb-3">
+                        <div class="col-4">
+                            <label>Password: </label>
+                        </div>
+                        <div class="col-8">
+                            <input type="password" name="ps1" class="form-control" placeholder="Password" value="{{data.password}}">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-4">
+                            <label>Confirm Password: </label>
+                        </div>
+                        <div class="col-8">
+                            <input type="password" name="ps2" class="form-control" placeholder="Confirm Password" value="{{data.conf_password}}">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-4">
+                            <label>Email: </label>
+                        </div>
+                        <div class="col-8">
+                            <input type="email" name="email" class="form-control" placeholder="Email" value="{{data.email}}">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-4">
+                            <label>Contact: </label>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" name="contact" class="form-control" placeholder="Contact" value="{{data.contact}}">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </form>
             </div>
-            <!-- End Column 1 -->
-
 
         </div>
+
+
     </div>
 </div>
 
@@ -151,33 +148,10 @@
     <div class="container relative">
 
         <div class="sofa-img">
-            <!--					<img src="{% static 'shopstyle/images/sofa.png' %}" alt="Image" class="img-fluid">-->
+            <!--					<img src="images/sofa.png" alt="Image" class="img-fluid">-->
         </div>
 
-        <div class="row">
-            <div class="col-lg-8">
-                <div class="subscription-form">
-                    <h3 class="d-flex align-items-center"><span class="me-1"><img
-                            src="{% static 'shopstyle/images/envelope-outline.svg' %}" alt="Image"
-                            class="img-fluid"></span><span>Subscribe to Newsletter</span></h3>
 
-                    <form action="#" class="row g-3">
-                        <div class="col-auto">
-                            <input type="text" class="form-control" placeholder="Enter your name">
-                        </div>
-                        <div class="col-auto">
-                            <input type="email" class="form-control" placeholder="Enter your email">
-                        </div>
-                        <div class="col-auto">
-                            <button class="btn btn-primary">
-                                <span class="fa fa-paper-plane"></span>
-                            </button>
-                        </div>
-                    </form>
-
-                </div>
-            </div>
-        </div>
 
         <div class="row g-5 mb-5">
             <div class="col-lg-4">
@@ -237,7 +211,7 @@
         <div class="border-top copyright">
             <div class="row pt-4">
                 <div class="col-lg-6">
-                    <!--							<p class="mb-2 text-center text-lg-start">Copyright &copy;<script>document.write(new Date().getFullYear());</script>. All Rights Reserved. &mdash; Designed with love by <a href="https://untree.co">Untree.co</a>  Distributed By <a href="https://themewagon.com">ThemeWagon</a> &lt;!&ndash; License information: https://untree.co/license/ &ndash;&gt;-->
+                    <!--							<p class="mb-2 text-center text-lg-start">Copyright &copy;<script>document.write(new Date().getFullYear());</script>. All Rights Reserved. &mdash; Designed with love by <a href="https://untree.co">Untree.co</a> Distributed By <a hreff="https://themewagon.com">ThemeWagon</a>  &lt;!&ndash; License information: https://untree.co/license/ &ndash;&gt;-->
                     <!--            </p>-->
                 </div>
 
@@ -259,20 +233,6 @@
 <script src="{% static 'shopstyle/js/bootstrap.bundle.min.js' %}"></script>
 <script src="{% static 'shopstyle/js/tiny-slider.js' %}"></script>
 <script src="{% static 'shopstyle/js/custom.js' %}"></script>
-
-<!-- JQuery link-->
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script>
-    $(document).ready(function(){
-          $("#quantity").change(function(){
-              x = document.getElementById("price").value;
-            y = document.getElementById("quantity").value;
-            result = x*y;
-            document.getElementById("total").value = result;
-          })
-    })
-</script>
-
 </body>
 
 </html>

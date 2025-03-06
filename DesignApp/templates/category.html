@@ -51,7 +51,7 @@
             </ul>
 
 
-
+            {% if request.session.username %}
             <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
@@ -66,6 +66,7 @@
                 </li>
                 <!--						<li><a class="nav-link" href="cart.html"><img src="{% static 'designstyles/images/cart.svg' %}"></a></li>-->
             </ul>
+            {% endif %}
         </div>
     </div>
 

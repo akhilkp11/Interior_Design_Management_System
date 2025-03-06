@@ -52,10 +52,17 @@
                        aria-expanded="false"><i class="fa-solid fa-user"></i></a>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="#">Hi {{request.session.username}}</a></li>
+
+                         <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="{% url 'edit_profile_page' %}">Edit Profile</a></li>
+
                         <li>
                             <hr class="dropdown-divider">
                         </li>
                         <li><a class="dropdown-item" href="{% url 'user_sign_out' %}">Log out</a></li>
+
                     </ul>
                 </li>
                 {% else %}

@@ -44,7 +44,7 @@
                 </li>
 
             </ul>
-
+            {% if request.session.username %}
             <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
 
 
@@ -60,8 +60,9 @@
                     </ul>
                 </li>
 <!--                <li><a class="nav-link" href="cart.html"><img src="{% static 'designstyles/images/cart.svg' %}"></a>-->
-                </li>
+<!--                </li>-->
             </ul>
+            {% endif %}
         </div>
     </div>
 

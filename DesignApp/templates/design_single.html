@@ -44,7 +44,7 @@
                 </li>
 
             </ul>
-
+            {% if request.session.username %}
             <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
 
                 <li class="nav-item dropdown">
@@ -61,6 +61,7 @@
                 <!--                <li><a class="nav-link" href="{% url 'cart_page' %}"><img-->
                 <!--                        src="{% static 'designstyles/images/cart.svg' %}"></a></li>-->
             </ul>
+            {% endif %}
         </div>
     </div>
 
@@ -128,14 +129,23 @@
                                 <!--										<li>Donec vitae odio quis nisl dapibus malesuada</li>-->
                                 <!--									</ul>-->
 
-
+                                {% if request.session.username %}
                                 <p><a href="" class="mt-4" data-bs-toggle="modal" data-bs-target="#consultationModal">
                                     <button type="button" class="btn btn-lg">Book Free Consultation</button>
                                 </a></p>
 
-                                <p><a href="{% url 'download_design_pdf' d_id=item.id %}" class="mt-4 btn btn-lg" >
+                                 <p><a href="{% url 'download_design_pdf' d_id=item.id %}" class="mt-4 btn btn-lg" >
                                     Download PDF
                                 </a></p>
+                                {% else %}
+                                <p><a href="" class="mt-4" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                    <button type="button" class="btn btn-lg">Book Free Consultation</button>
+                                </a></p>
+
+
+                                {% endif %}
+
+
                             </form>
                             <!--form ends-->
                         </div>
@@ -334,6 +344,25 @@
 </div>
 <!-- End Modal -->
 
+           <!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Message</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Please login to book consultation</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+      </div>
+    </div>
+  </div>
+</div>
+<!--end modal-->
 
 <script src="{% static 'designstyles/js/bootstrap.bundle.min.js' %}"></script>
 <script src="{% static 'designstyles/js/tiny-slider.js' %}"></script>

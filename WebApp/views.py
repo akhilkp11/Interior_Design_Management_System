@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from AdminApp.models import CategoryDb, ProductDb
 from WebApp.models import UserRegistrationDb, CartDb, OrderDb, ContactDb
+import re
 from django.contrib import messages
 import razorpay
 
@@ -19,9 +20,37 @@ def user_signup(request):
         em = request.POST.get('email')
         cont = request.POST.get('mobile')
 
+        # Validate that passwords match
         if ps1 != ps2:
             messages.error(request, "Passwords do not match.")
             return redirect(signup_page)
+
+        # Password Validation: Minimum 8 characters, 1 number, 1 special character, 1 uppercase, and 1 lowercase letter
+        if len(ps1) < 8:
+            messages.error(request, "Password must be at least 8 characters long.")
+            return redirect(signup_page)
+
+        if not re.search(r'[A-Za-z]', ps1) or not re.search(r'[0-9]', ps1) or not re.search(r'[^A-Za-z0-9]', ps1):
+            messages.error(request, "Password must contain at least one letter, one number, and one special character.")
+            return redirect(signup_page)
+
+        if not any(char.isupper() for char in ps1):
+            messages.error(request, "Password must contain at least one uppercase letter.")
+            return redirect(signup_page)
+
+        if not any(char.islower() for char in ps1):
+            messages.error(request, "Password must contain at least one lowercase letter.")
+            return redirect(signup_page)
+
+
+        # Validate mobile number length
+        if len(cont) != 10:
+            messages.error(request, "Invalid mobile number")
+            return redirect(signup_page)
+
+
+
+
 
         if UserRegistrationDb.objects.filter(username=un).exists():
             messages.error(request, "Username already taken. Please choose another one.")
@@ -61,6 +90,26 @@ def user_sign_out(request):
 
 def display_home(request):
     return render(request, "home.html")
+
+def edit_profile_page(request):
+    un = request.session['username']
+    data = UserRegistrationDb.objects.get(username=un)
+    return render(request, "edit_profile.html", {'data': data})
+
+
+def update_user(request):
+    if request.method == "POST":
+        ps1 = request.POST.get('password')
+        ps2 = request.POST.get('re_password')
+        em = request.POST.get('email')
+        cont = request.POST.get('mobile')
+
+        if ps1 != ps2:
+            messages.error(request, "Passwords do not match.")
+            return redirect(signup_page)
+
+        if UserRegistrationDb.objects.filter(username=un).exists():
+            messages.error(request, "Username already taken. Please choose another one.")
 
 def save_contact_homepage(request):
     if request.method == "POST":
