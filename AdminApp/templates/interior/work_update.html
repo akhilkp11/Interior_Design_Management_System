@@ -20,6 +20,7 @@
         <input class="m-3" type="file" placeholder="upload image" name="work_image"><br>
         <button type="submit" class="btn btn-success">Submit</button>
     </form>
+
     <hr>
 </div>
 
@@ -29,12 +30,22 @@
     <div class="row m-3">
         <div class="col-12 m-2 bg-white">
             <h3>{{forloop.counter}}</h3><br>
+            <div class="m-3 d-flex justify-content-end">
+                <a href="{% url 'work_progress_edit_page' w_id=d.id %}">
+                    <button class="btn btn-outline-info mr-3">Edit</button>
+                </a>
+                <a href="{% url 'delete_work_progress' w_id=d.id %}">
+                    <button class="btn btn-outline-danger">Delete</button>
+                </a>
+            </div>
             <p>{{d.WorkDetails}}</p>
             {% if d.WorkImage %}
             <img src="{{d.WorkImage.url}}" width="300px">
             {% endif %}
             <h5 class="d-flex justify-content-end">{{d.TimeStamp}}</h5>
+
         </div>
+
     </div>
     {% endfor %}
 </div>

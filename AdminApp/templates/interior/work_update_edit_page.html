@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>
+    <h1 class="text-center m-5">Edit details</h1>
+    <a href="{% url 'work_progress' c_id=data.consult.id %}" class=" "><button class="btn btn-outline-primary  m-5">Back to work update page</button></a>
+    <form method="post" action="{% url 'update_work_progress' w_id=data.id %}" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <label>work details : </label><br>
+        <textarea class=" row-6 col-10 " placeholder="work details" name="work_details">{{data.WorkDetails}}</textarea><br>
+
+        <label>Upload image :</label>
+        <input class="m-3" type="file" placeholder="upload image" name="work_image"><br>
+
+        {% if data.WorkImage %}
+        <img src="{{data.WorkImage.url}}" width=300px>
+        {% endif %}
+        <h5 class="d-flex justify-content-end">{{data.TimeStamp}}</h5>
+        <button type="submit" class="btn btn-success">Update</button>
+    </form>
+</div>
+</body>
+</html>
+{% endblock %}

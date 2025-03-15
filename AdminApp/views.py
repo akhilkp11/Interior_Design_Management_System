@@ -297,6 +297,39 @@ def save_daily_progress(request, c_id):
         return redirect(display_consultation)
 
 
+def work_progress_edit_page(request, w_id):
+    data = DailyProgressDb.objects.get(id=w_id)
+    return render(request, "interior/work_update_edit_page.html", {'data': data})
+
+
+def update_work_progress(request, w_id):
+    data = get_object_or_404(DailyProgressDb, id=w_id)
+
+    if request.method == "POST":
+        work_details = request.POST.get('work_details')  # Get work details from the form
+        work_image = request.FILES.get('work_image')
+        # Optional: Get the associated consult instance if needed
+        # For instance, assuming the consult field refers to an existing consult
+        consult = data.consult  # If you want to preserve the consult or update with new data, modify here
+
+        # Update the data instance
+        data.WorkDetails = work_details
+        if work_image:  # If there's a new image, update it
+            data.WorkImage = work_image
+        data.consult = consult  # Update the consult association if necessary
+
+        # Save the updated instance
+        data.save()
+    return redirect(work_progress_edit_page, w_id=data.id)
+
+
+def delete_work_progress(request, w_id):
+    x = get_object_or_404(DailyProgressDb, id=w_id)
+    consult = x.consult
+    x.delete()
+    return redirect(work_progress, c_id=consult.id)
+
+
 def complete_consult_status(request, c_id):
     obj = ConsultDb.objects.get(id=c_id)
     obj.status = 'completed'

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>work update</title>
+
+    <!-- Add Bootstrap CSS for Modal -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+</head>
+<body>
+<div class="p-3">
+    <h1>Update here</h1>
+
+    <form method="post" action="{% url 'save_daily_progress' c_id=consult.id %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label>work details : </label><br>
+        <textarea class=" row-6 col-10 " placeholder="work details" name="work_details"></textarea><br>
+
+        <label>Upload image :</label>
+        <input class="m-3" type="file" placeholder="upload image" name="work_image"><br>
+        <button type="submit" class="btn btn-success">Submit</button>
+    </form>
+
+    <hr>
+</div>
+
+<div class="container-fluid">
+    {% for d in data %}
+    <div class="row m-3">
+        <div class="col-12 m-2 bg-white">
+            <h3>{{forloop.counter}}</h3><br>
+            <div class="m-3 d-flex justify-content-end">
+                <!-- Button to open the modal -->
+                <button class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#editModal"
+                        onclick="fillModalData({{d.id}}, '{{d.WorkDetails}}', '{% if d.WorkImage %} {{d.WorkImage.url}} {% else %} '' {% endif %} ')">Edit</button>
+            </div>
+            <p>{{d.WorkDetails}}</p>
+            {% if d.WorkImage %}
+            <img src="{{d.WorkImage.url}}" width="300px">
+            {% endif %}
+            <h5 class="d-flex justify-content-end">{{d.TimeStamp}}</h5>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- Modal Structure -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Edit Work Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="" enctype="multipart/form-data">
+                    {% csrf_token %}
+<!--                    url 'update_daily_progress'-->
+                    <input type="hidden" id="edit_id" name="id">
+
+                    <label>Work Details:</label><br>
+                    <textarea class="form-control" id="edit_work_details" name="work_details"></textarea><br><br>
+
+                    <label>Upload Image:</label>
+                    <input class="form-control" type="file" id="edit_work_image" name="work_image"><br><br>
+
+                    <button type="submit" class="btn btn-success">Save Changes</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript to handle the modal and fill it with data -->
+<script>
+    function fillModalData(id, workDetails, workImage) {
+        document.getElementById('edit_id').value = id;
+        document.getElementById('edit_work_details').value = workDetails;
+
+        // If there is a work image, you might want to display it (optional)
+        // For now, we are only updating text, but you could add a preview for images if needed
+        console.log(workImage); // you can remove this line if not needed
+    }
+</script>
+</body>
+</html>
+{% endblock %}

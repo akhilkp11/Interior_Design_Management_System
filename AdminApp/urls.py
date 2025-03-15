@@ -52,6 +52,9 @@ urlpatterns = [
     path('book_consult_status/<int:c_id>/', views.book_consult_status, name="book_consult_status"),
     path('work_progress/<int:c_id>/', views.work_progress, name="work_progress"),
     path('save_daily_progress/<int:c_id>/', views.save_daily_progress, name="save_daily_progress"),
+    path('work_progress_edit_page/<int:w_id>/', views.work_progress_edit_page, name="work_progress_edit_page"),
+    path('update_work_progress/<int:w_id>/', views.update_work_progress, name="update_work_progress"),
+    path('delete_work_progress/<int:w_id>/', views.delete_work_progress, name="delete_work_progress"),
 
 
 ]
