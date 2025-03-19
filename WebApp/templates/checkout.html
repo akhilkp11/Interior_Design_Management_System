@@ -105,7 +105,7 @@
                             <div class="col-md-12">
                                 <label for="c_name" class="text-black"> Name <span
                                         class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="c_name" name="c_name">
+                                <input type="text" class="form-control" id="c_name" name="c_name" required>
                             </div>
 
                         </div>
@@ -115,7 +115,7 @@
                             <div class="col-md-12">
                                 <label for="c_address" class="text-black"> Address <span
                                         class="text-danger">*</span></label>
-                                <textarea class="form-control" id="c_address" name="c_address"></textarea>
+                                <textarea class="form-control" id="c_address" name="c_address" required></textarea>
                             </div>
                         </div>
 
@@ -124,7 +124,7 @@
                                 <label for="c_shipping_address" class="text-black">Shipping Address <span
                                         class="text-danger">*</span></label>
                                 <textarea class="form-control" id="c_shipping_address"
-                                          name="c_shipping_address"></textarea>
+                                          name="c_shipping_address" required></textarea>
                             </div>
                         </div>
 
@@ -133,12 +133,12 @@
                             <div class="col-md-6">
                                 <label for="c_state_country" class="text-black">State / Country <span
                                         class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="c_state_country" name="c_state_country">
+                                <input type="text" class="form-control" id="c_state_country" name="c_state_country" required>
                             </div>
                             <div class="col-md-6">
                                 <label for="c_postal_zip" class="text-black">PIN code / Zip <span
                                         class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="c_postal_zip" name="c_postal_zip">
+                                <input type="text" class="form-control" id="c_postal_zip" name="c_postal_zip" required>
                             </div>
                         </div>
 
@@ -146,13 +146,13 @@
                             <div class="col-md-12">
                                 <label for="c_email" class="text-black">Email <span
                                         class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="c_email" name="c_email">
+                                <input type="email" class="form-control" id="c_email" name="c_email" required>
                             </div>
                             <div class="col-md-12">
                                 <label for="c_phone" class="text-black">Mobile Number <span
                                         class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="c_phone" name="c_phone"
-                                       placeholder="Phone Number">
+                                       placeholder="Phone Number" required>
                             </div>
                             <input type="hidden" name="c_total" value="{{total}}">
                         </div>

@@ -1,10 +1,15 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from AdminApp.models import CategoryDb, ProductDb
-from WebApp.models import UserRegistrationDb, CartDb, OrderDb, ContactDb
+from WebApp.models import UserRegistrationDb, CartDb, OrderDb, ContactDb, PaymentDetails, OrderTracking
 import re
 from django.contrib import messages
+from django.conf import settings
 import razorpay
+from django.urls import reverse
+from django.http import JsonResponse
+import json
+
 
 # Create your views here.
 
@@ -292,11 +297,69 @@ def payment(request):
 
     if request.method == "POST":
         order_currency = 'INR'
-        client = razorpay.Client(auth=('your_key_id', 'your_key_secret'))
+        client = razorpay.Client(auth=('rzp_test_zd2WfeB6SbHEAn', 'sc4JnF7I7ra9QpFb1MK8Qlm0'))
 
         payment = client.order.create({'amount': amount, 'currency': order_currency})
 
-    return render(request, "payment.html", {'customer': customer, 'payy_str': payy_str})
+    return render(request, "payment1.html", {'customer': customer, 'payy_str': payy_str})
+
+
+# View to handle the saving of payment details after successful transaction
+def save_payment(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        payment_id = data.get('payment_id')
+        order_id = data.get('order_id')
+        amount = data.get('amount')
+        user_name = data.get('user')
+        # print(user_name)
+
+        # Find the order by order_id
+        try:
+            order = OrderDb.objects.get(id=order_id)
+            # Create a PaymentDetails record
+            payment_details = PaymentDetails.objects.create(
+                order=order,
+                user_name=user_name,
+                payment_id=payment_id,
+                amount=amount,
+                status="Success"  # You can set the status as "Success" once payment is verified
+            )
+
+            # Create an OrderTracking record for tracking purposes
+            OrderTracking.objects.create(
+                order=order,
+                user_name=user_name,
+                payment=payment_details,
+                tracking_status="Payment Successful"
+            )
+
+            return JsonResponse({'status': 'success'})
+        except OrderDb.DoesNotExist:
+            return JsonResponse({'status': 'error', 'message': 'Order not found'})
+
+    return JsonResponse({'status': 'error', 'message': 'Invalid request'})
+
+
+def payment_success(request, order_id):
+    try:
+        # Get the order and its payment details
+        order = OrderDb.objects.get(id=order_id)
+        order_tracking = OrderTracking.objects.filter(order=order).first()
+        user_name = order_tracking.user_name
+
+        cart_items = CartDb.objects.filter(Username=user_name)
+        cart_items.delete()
+
+        if order_tracking:
+
+            return render(request, 'payment_success.html', {'order': order, 'order_tracking': order_tracking})
+        else:
+            return render(request, 'payment_failed.html', {'order': order})
+
+    except OrderDb.DoesNotExist:
+        return render(request, 'payment_failed.html', {'error_message': 'Order not found'})
+
 
 
 def about(request):

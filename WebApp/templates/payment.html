@@ -57,7 +57,8 @@
 <body>
 <!--create account in x.razorpay and generate RAZOR_KEY_ID = YOUR_KEY_ID, RAZOR_KEY_SECRET = YOUR_KEY_SECRET-->
 <div class="card">
-    <form method="post" action="#">
+    <h3>hi {{request.session.username}}</h3>
+    <form method="post" action="{% url 'payment_success' %}">
         {% csrf_token %}
         <h1 class="title">Welcome {{customer.Name}}</h1>
         <small class="muted">Proceed to payment</small>

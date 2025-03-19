@@ -1,7 +1,9 @@
 from django.db import models
 from DesignApp.models import ConsultDb
+from WebApp.models import OrderDb
 
 # Create your models here.
+
 
 class CategoryDb(models.Model):
     category_name = models.CharField(max_length=100, unique=True)
@@ -48,5 +50,15 @@ class DailyProgressDb(models.Model):
     TimeStamp = models.DateTimeField(auto_now_add=True)
 
 
+class TrackingDb(models.Model):
+    order = models.ForeignKey(OrderDb, on_delete=models.CASCADE)
+    tracking_number = models.CharField(max_length=100, blank=True, null=True)  # Optional tracking number
+    carrier = models.CharField(max_length=100, null=True, blank=True)  # Carrier name (e.g., FedEx, UPS)
+    status = models.CharField(max_length=100, default="In Transit")  # Current status of the shipment
+    estimated_delivery_date = models.DateField(null=True, blank=True)  # Estimated delivery date
+    created_at = models.DateTimeField(auto_now_add=True)  # Timestamp for when the tracking was created
+    updated_at = models.DateTimeField(auto_now=True)  # Timestamp for when the tracking was last updated
 
+    def __str__(self):
+        return f"Tracking for Order {self.order.id} - Carrier: {self.carrier}, Status: {self.status}"
 

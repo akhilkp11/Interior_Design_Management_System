@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Success</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f9f9f9;
+            padding: 50px;
+        }
+        .success-container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .success-container h1 {
+            color: #28a745;
+        }
+        .order-details {
+            margin: 20px 0;
+            font-size: 18px;
+        }
+        .btn-back {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .btn-back:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<div class="success-container">
+    <h3>hi {{request.session.username}}</h3>
+    <h1>Payment Successful!</h1>
+    <div class="order-details">
+        <p><strong>Order ID:</strong> {{ order.id }}</p>
+        <p><strong>Customer Name:</strong> {{ order.name }}</p>
+        <p><strong>Tracking Status:</strong> {{ order_tracking.tracking_status }}</p>
+        {% if order_tracking.tracking_number %}
+            <p><strong>Tracking Number:</strong> {{ order_tracking.tracking_number }}</p>
+        {% endif %}
+    </div>
+    <button class="btn-back" onclick="window.location.href='/shop'">Back to Shop</button>
+</div>
+
+</body>
+</html>
