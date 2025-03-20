@@ -108,6 +108,22 @@
                     </div>
                 </li>
 
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="collapse" href="#ui-basics" aria-expanded="false"
+                       aria-controls="ui-basic">
+                        <span class="icon-bg"><i class="mdi mdi-crosshairs-gps menu-icon"></i></span>
+                        <span class="menu-title">Contact us</span>
+                        <i class="menu-arrow"></i>
+                    </a>
+                    <div class="collapse" id="ui-basics">
+                        <ul class="nav flex-column sub-menu">
+                            <!--                  <li class="nav-item"> <a class="nav-link" href="{% url 'add_category' %}">Add</a></li>-->
+                            <li class="nav-item"><a class="nav-link" href="{% url 'display_booking' %}">View</a></li>
+
+                        </ul>
+                    </div>
+                </li>
+
 
                 <li class="nav-item nav-category">E-Commerce</li>
 
@@ -143,17 +159,19 @@
                     </div>
                 </li>
 
+
+
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="collapse" href="#ui-basics" aria-expanded="false"
+                    <a class="nav-link" data-toggle="collapse" href="#ui-ba" aria-expanded="false"
                        aria-controls="ui-basic">
                         <span class="icon-bg"><i class="mdi mdi-crosshairs-gps menu-icon"></i></span>
-                        <span class="menu-title">Booking</span>
+                        <span class="menu-title">Order </span>
                         <i class="menu-arrow"></i>
                     </a>
-                    <div class="collapse" id="ui-basics">
+                    <div class="collapse" id="ui-ba">
                         <ul class="nav flex-column sub-menu">
                             <!--                  <li class="nav-item"> <a class="nav-link" href="{% url 'add_category' %}">Add</a></li>-->
-                            <li class="nav-item"><a class="nav-link" href="{% url 'display_booking' %}">View</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'display_order' %}">View</a></li>
 
                         </ul>
                     </div>

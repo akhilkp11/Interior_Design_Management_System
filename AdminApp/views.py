@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from AdminApp.models import CategoryDb, ProductDb, DesignCategoryDb, DesignsDb, DailyProgressDb
-from WebApp.models import ContactDb, UserRegistrationDb
+from WebApp.models import ContactDb, UserRegistrationDb, OrderDb, OrderTracking
 from DesignApp.models import ConsultDb
 from django.utils.datastructures import MultiValueDictKeyError
 from django.core.files.storage import FileSystemStorage
@@ -363,3 +363,9 @@ def delete_user(request, u_id):
     x = UserRegistrationDb.objects.get(id=u_id)
     x.delete()
     return redirect(display_users)
+
+
+def display_order(request):
+    order = OrderTracking.objects.all()
+
+    return render(request, "display_order.html", {'order': order})

@@ -1,6 +1,6 @@
 from django.db import models
 from DesignApp.models import ConsultDb
-from WebApp.models import OrderDb
+from WebApp.models import OrderDb, PaymentDetails, OrderTracking
 
 # Create your models here.
 
@@ -52,6 +52,7 @@ class DailyProgressDb(models.Model):
 
 class TrackingDb(models.Model):
     order = models.ForeignKey(OrderDb, on_delete=models.CASCADE)
+    payment = models.ForeignKey(OrderTracking, on_delete=models.CASCADE)
     tracking_number = models.CharField(max_length=100, blank=True, null=True)  # Optional tracking number
     carrier = models.CharField(max_length=100, null=True, blank=True)  # Carrier name (e.g., FedEx, UPS)
     status = models.CharField(max_length=100, default="In Transit")  # Current status of the shipment

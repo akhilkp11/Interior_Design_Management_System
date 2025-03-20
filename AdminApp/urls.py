@@ -29,6 +29,9 @@ urlpatterns = [
     path('delete_product/<int:pr_id>/', views.delete_product, name="delete_product"),
 
 
+    path('display_order/', views.display_order, name="display_order"),
+
+
     path('display_booking/', views.display_booking, name="display_booking"),
 
 
